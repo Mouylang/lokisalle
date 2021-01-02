@@ -1,20 +1,63 @@
 {% extends 'base.html.twig' %}
+{% block meta %}
+  <meta name="description" content="Lokisalle - liste des salles" />
+{% endblock %}
 
-{% block title %}{{ title }}{% endblock %}
+{% block title %}
+ liste des salles
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }} Mouy! ✅</h1>
+<div class="row">
+    {% for room in rooms %}    
+        <div class="card mb-3 col-md-6">
+            <h3 class="card-header">
+                {{room.title}}
+            </h3>
+            <div class="card-body">
+                <h5 class="card-title">
+                Special title treatment
+                </h5>
+                <h6 class="card-subtitle text-muted">
+                Support card subtitle
+                </h6>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg"
+                class="d-block user-select-none"
+                width="100%"
+                height="200"
+                aria-label="Placeholder: Image cap"
+                focusable="false"
+                role="img"
+                preserveAspectRatio="xMidYMid slice"
+                viewBox="0 0 318 180"
+                style="font-size:1.125rem;text-anchor:middle">
+                <rect width="100%" height="100%" fill="#868e96"></rect>
+                <text x="50%" y="50%" fill="#dee2e6" dy=".3em">
+                Image cap
+                </text>
+            </svg>
+            <div class="card-body">
+                <p class="card-text">
+                Some quick example text to build on the card title and make up the
+                bulk of the card's content.
+                </p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Cras justo odio</li>
+                <li class="list-group-item">Dapibus ac facilisis in</li>
+                <li class="list-group-item">Vestibulum at eros</li>
+            </ul>
+            <div class="card-body">
+                <a href="{{path('room_show',{'id': room.id})}}" class="card-link">Show the detail</a>
+                <a href="#" class="card-link">Add to Cart</a>
+            </div>
+            <div class="card-footer text-muted">
+                2 days ago
+            </div>
+        </div>
+    {% endfor %}    
+  </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/mouyl/Dev/lokisalle/src/Controller/RoomController.php'|file_link(0) }}">src/Controller/RoomController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/mouyl/Dev/lokisalle/templates/room/index.html.twig'|file_link(0) }}">templates/room/index.html.twig</a></code></li>
-    </ul>
-</div>
 {% endblock %}
