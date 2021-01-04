@@ -1,6 +1,27 @@
 {% extends 'base.html.twig' %}
 {% form_theme formRoom 'bootstrap_4_layout.html.twig' %}
 {% block body %}
+    {% if editMode %}
+     <h1>Modifier la salle : {{title}} </h1>
+     {% else %}
      <h1>Création d'une nouvelle salle</h1>
-    {{form(formRoom)}}
+     {% endif %}
+    {{form_start(formRoom)}}
+
+    {{
+        form_row(formRoom.title,{
+        'attr':{'placeholder':'Entrez le nom de la salle au minimum 2 caractères'},
+        'label': 'Nom de la salle' })
+    }}
+
+     {{form_widget(formRoom)}}
+    {% if editMode %}
+    <input type="submit" class="btn btn-primary" value="Modifier la salle">
+    {% else %}
+    <input type="submit" class="btn btn-primary" value="Créer la salle">
+    {% endif %}
+    <a href="{{path('room')}}" class="btn btn-secondary">Annuler</a>
+
+
+    {{form_end(formRoom)}}
 {% endblock %}

@@ -6,9 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Room;
+use App\Form\RoomType;
 use App\Repository\RoomRepository;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class RoomController extends AbstractController
 {
@@ -27,29 +28,28 @@ class RoomController extends AbstractController
 
     /**
      * @Route("/room/new", name="room_create")
+     * @Route("/room/{id}/edit", name="room_edit")
      */
-    public function create(){
-        $room = new Room();
+    public function create_or_update(Room $room=null,Request $request, EntityManagerInterface $manager){
+        if(!$room){
+            $room = new Room();
+        }
+        
+        $form=$this->createForm(RoomType::class,$room);        
 
-        $formBuilder = $this->createFormBuilder($room);
-        $formBuilder->add('title', TextType::class, [
-            'attr'=>[
-                'placeholder'=> 'saisir un titre'
-            ]
-        ]);
-        $formBuilder->add('country');
-        $formBuilder->add('city');
-        $formBuilder->add('address');
-        $formBuilder->add('zipCode');
-        $formBuilder->add('description');
-        $formBuilder->add('photo');
-        $formBuilder->add('capacity');
-        $formBuilder->add('category');
-        $form=$formBuilder->getForm();
-        $formView = $form->createView();
- 
+        $form->handleRequest($request);
+
+   
+        if($form->isSubmitted() && $form->isValid()){
+            $manager->persist($room);
+            $manager->flush();
+            return $this->redirectToRoute('room_show',['id' => $room->getId()]);
+        }
         return $this->render('room/create.html.twig',[
-            'formRoom' =>  $formView
+            'formRoom' =>  $form->createView(),
+            'editMode'=> $room->getId()!== null,
+            'title'=> $room->getTitle()
+
         ]);
 
     }
