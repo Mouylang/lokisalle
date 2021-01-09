@@ -7,11 +7,15 @@
  liste des salles
 {% endblock %}
 
+{% block headScripts %}
+    <script src="/js/lokisalle_room.js"></script>
+{% endblock %}
+
 {% block body %}
 
 <div class="row">
     {% for room in rooms %}    
-        <div class="card mb-3 col-md-6">
+        <div class="card mb-3 col-md-4 offset-md-1">
             <h3 class="card-header">
                 {{room.title}}
             </h3>
@@ -52,6 +56,8 @@
             <div class="card-body">
                 <a href="{{path('room_show',{'id': room.id})}}" class="card-link">Afficher la salle</a>
                 <a href="{{path('room_edit',{'id': room.id})}}" class="card-link">Modifier la salle</a>
+                <button data-toggle="modal" data-target="#modal_simple" class="btn btn-danger js-btn-delete-room" value="{{room.id}}" type="button">  Supprimer  </button>
+                
             </div>
             <div class="card-footer text-muted">
                 2 days ago
@@ -59,5 +65,26 @@
         </div>
     {% endfor %}    
   </div>
+    <!-- Modal en cas de suppression d une salle -->
+  <div id="modal_simple" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Etes-vous sûr de vouloir supprimer ?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Si vous supprimez la salle, vous risquez de tout supprimer aussi : les produits, les avis,... associés à cette salle!</p>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        <a href="#" class="btn btn-danger js-confirm-suppression">Confirmer la suppression</a>
+      </div>
+    </div>
+  </div> <!-- modal-bialog .// -->
+</div> <!-- modal.// -->
 
 {% endblock %}

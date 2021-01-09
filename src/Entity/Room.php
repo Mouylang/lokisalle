@@ -94,9 +94,15 @@ class Room
      */
     private $comments;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="room")
+     */
+    private $products;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->products = new ArrayCollection();
     }
 
    
@@ -237,6 +243,36 @@ class Room
             // set the owning side to null (unless already changed)
             if ($comment->getRoom() === $this) {
                 $comment->setRoom(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProducts(Product $products): self
+    {
+        if (!$this->products->contains($products)) {
+            $this->products[] = $products;
+            $products->setRoom($this);
+        }
+
+        return $this;
+    }
+
+    public function removePrice(Product $price): self
+    {
+        if ($this->price->removeElement($price)) {
+            // set the owning side to null (unless already changed)
+            if ($price->getRoom() === $this) {
+                $price->setRoom(null);
             }
         }
 

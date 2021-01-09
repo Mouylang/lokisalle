@@ -64,6 +64,16 @@ class RoomController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/room/{id}/delete", name="room_delete")
+     */
+    public function delete(Room $room,EntityManagerInterface $manager){
+        $manager->remove($room);
+        $manager->flush();
+        return $this->redirectToRoute('room');
+
+    }
+
     
     
 

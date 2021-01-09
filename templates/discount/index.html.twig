@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des codes promos{% endblock %}
+
+{% block body %}
+
+    <h1 class="pb-5">Liste des codes promos</h1>
+    <a href="{{path('discount_create')}}" class="btn btn-primary">Ajouter un code Promo</a>
+    <p></p>
+    <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th>Code promotion</th>
+      <th>Reduction %</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for discount in discounts %}
+        <tr>   
+            <td>{{discount.discountCode}}</td>
+            <td>{{discount.reduction}}</td>
+            <td>
+                <a href="{{path('discount_edit',{'id': discount.id})}}">Edit</a>
+                <a href="{{path('discount_delete',{'id': discount.id})}}">Sup</a>
+            </td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

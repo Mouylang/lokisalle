@@ -17,10 +17,6 @@ class Comment
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $author;
 
     /**
      * @ORM\Column(type="text")
@@ -44,22 +40,18 @@ class Comment
      */
     private $room;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): self
-    {
-        $this->author = $author;
-
-        return $this;
-    }
+    
 
     public function getContent(): ?string
     {
@@ -106,6 +98,18 @@ class Comment
     public function setRoom(?Room $room): self
     {
         $this->room = $room;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

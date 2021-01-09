@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% form_theme formDiscount 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+    {% if editMode %}
+     <h1>Modification de code Promo</h1>
+    {% else %}
+    <h1>Création de code Promo</h1>
+    {% endif %} 
+    {{form_start(formDiscount)}}
+
+
+     {{form_widget(formDiscount)}}
+    {% if editMode %}
+    <input type="submit" class="btn btn-primary" value="Modifier un code promo">
+    {% else %}
+    <input type="submit" class="btn btn-primary" value="Créer un code promo">
+    {% endif %}
+    <a href="{{path('discount')}}" class="btn btn-secondary">Annuler</a>
+
+    {{form_end(formDiscount)}}
+{% endblock %}
