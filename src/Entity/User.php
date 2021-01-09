@@ -4,12 +4,22 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(
+ * fields={"email"},
+ * message="Cet email est déjà utilisé !"
+ * )
+ * @UniqueEntity(
+ * fields={"login"},
+ * message="Ce login est déjà utilisé !"
+ * )
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -26,12 +36,12 @@ class User
 
     /**
      * @Assert\Length(min=8 , minMessage="Votre mot de passe doit faire minimum 8 caractères")
-     * @ORM\Column(type="string", length=32)
+     * @ORM\Column(type="string", length=250)
      */
     private $password;
 
     /**
-     * @Assert\EqualTo(propertyPath="password" , message="les mots de passe de correspondent pas")
+     * @Assert\EqualTo(propertyPath="password" , message="Les mots de passe de correspondent pas")
      */
     private $confirmPassword;
 
@@ -88,6 +98,7 @@ class User
     {
         return $this->login;
     }
+
 
     public function setLogin(string $login): self
     {
@@ -217,4 +228,27 @@ class User
 
         return $this;
     }
+
+    // ----------- implementation de UserInterface------
+
+    public function getUsername()
+    {
+        return $this->login;
+    }
+
+    public function getRoles()
+    {
+        return ['Member'];
+    }
+
+    public function getSalt()
+    {
+        return "j'adore Macron et le PHP ;) ";
+    }
+
+    public function eraseCredentials()
+    {
+        
+    }
+
 }

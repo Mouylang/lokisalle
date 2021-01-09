@@ -9,13 +9,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
     /**
      * @Route("/register", name = "security_registration")
      */
-    function register(Request $request, EntityManagerInterface $manager){
+    function register(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder){
         $user = new User();
 
         $form=$this->createForm(RegistrationType::class,$user); 
@@ -23,16 +25,47 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
 
-        if ($form->isSubmitted() &&  $form->isValid()){            
+        if ($form->isSubmitted() &&  $form->isValid()){       
+                $hash = $encoder->encodePassword($user, $user->getPassword());  
+                $user->setPassword($hash);
+
                 $user->setEnabled(true);
-                $user->setPassword(md5($user->getPassword()));
+
                 $manager->persist($user);
                 $manager->flush();
-                return $this->redirectToRoute('home');           
+
+                return $this->redirectToRoute('security_login');     
+
         }
 
         return $this->render("security/register.html.twig",[
             "registrationForm"=>$form->createView()
         ]);
     }
+
+    /**
+     * @Route("/login", name="security_login")
+     */
+    public function login(AuthenticationUtils $authenticationUtils){
+
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+
+        return $this->render('security/login.html.twig', [
+            'error' => $error,
+            'lastUsername'=> $lastUsername
+        ]);
+    }
+
+    /**
+     * @Route("/logout", name="security_logout")
+     */
+    public function logout(){
+        
+    }
+
+
+
+
 }
