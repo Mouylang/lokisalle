@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block meta %}
+  <meta name="description" content="Lokisalle - liste des produits" />
+{% endblock %}
+
+{% block title %}
+  La fiche produit
+{% endblock %}
+
+{% block body %}
+<h1>Le produit : {{product.room.title}} du {{product.checkinAt|date('d/m/Y')}} au {{product.checkoutAt|date('d/m/Y')}}</h1>
+    <a href="{{path('cart_add',{'id': product.id})}}" class="btn btn-primary">Ajouter au panier</a>
+
+
+{% endblock %}

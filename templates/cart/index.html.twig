@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon <i class="fas fa-parking-circle-slash    "></i>{% endblock %}
+
+{% block body %}
+<h1>La liste des produits dans mon panier</h1>
+    <a href="{{path('product')}}" class="btn btn-primary">Continuer mes achats</a>
+
+    
+     {% if isEmpty %}
+        <p>Votre panier est vide</p>
+
+    {% else %}
+        <ul>
+        {% for product in products %}
+            <li><a href="{{path('product_show',{'id': product.id})}}">{{product.room.title}} du {{product.checkinAt|date('d/m/Y')}} au {{product.checkoutAt|date('d/m/Y')}} ({{product.price}} €)</a></li>
+        {% endfor %}
+        </ul>
+    
+        <p>Prix total du panier : {{totalAmount}} €</p>
+        <a href="#" class="btn btn-primary">Commander</a>
+
+
+    {% endif %}
+
+
+
+
+{% endblock %}

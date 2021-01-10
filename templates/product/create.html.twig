@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% form_theme formProduct 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+    {% if editMode %}
+     <h1>Modifier un produit</h1>
+     {% else %}
+     <h1>Création d'un produit</h1>
+     {% endif %}
+    {{form_start(formProduct)}}
+
+    {{form_widget(formProduct)}}
+    {% if editMode %}
+    <input type="submit" class="btn btn-primary" value="Modifier le produit">
+    {% else %}
+    <input type="submit" class="btn btn-primary" value="Créer le produit">
+    {% endif %}
+    <a href="{{path('product')}}" class="btn btn-secondary">Annuler</a>
+
+
+    {{form_end(formProduct)}}
+{% endblock %}

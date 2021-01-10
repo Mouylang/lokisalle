@@ -97,4 +97,10 @@ class Discount
 
         return $this;
     }
+
+
+    //fonction supplementaire dans l'entité
+    public function getDisplayName(){
+        return $this->getDiscountCode() . " (" . $this->getReduction() ."%)";
+    }
 }

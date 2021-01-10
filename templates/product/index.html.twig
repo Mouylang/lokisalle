@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste de tous les produits{% endblock %}
+
+{% block body %}
+<h1>La liste des produits</h1>
+    <a href="{{path('product_create')}}" class="btn btn-primary">Ajouter un produit</a>
+<div class="row">
+    
+    <ul>
+    {% for product in products %}
+        <li><a href="{{path('product_show',{'id': product.id})}}">{{product.room.title}} du {{product.checkinAt|date('d/m/Y')}} au {{product.checkoutAt|date('d/m/Y')}}</a></li>
+    {% endfor %}
+    </ul>
+</div>
+
+
+{% endblock %}
