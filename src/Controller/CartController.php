@@ -9,15 +9,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CartController extends AbstractController
 {
     /**
      * @Route("/cart", name="cart")
      */
-    public function index(Request $request,ProductRepository $productRepository): Response
+    public function index(SessionInterface $session,ProductRepository $productRepository): Response
     {
-        $session = $request->getSession();
         $cart = $session->get('cart', new Cart());
         $ids=$cart->getAllProduct();
 
@@ -41,8 +41,7 @@ class CartController extends AbstractController
     /**
      * @Route("/cart/add/{id}", name="cart_add")
      */
-    public function add( Request $request, $id){
-        $session = $request->getSession();
+    public function add(SessionInterface $session, $id){
         $cart = $session->get('cart', new Cart());
         $cart->addProduct($id);
         $session->set('cart', $cart);

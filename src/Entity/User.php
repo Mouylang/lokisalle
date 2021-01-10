@@ -267,7 +267,7 @@ class User implements UserInterface
 
     public function getRoles()
     {
-        return ['Member'];
+        return ['ROLE_MEMBER'];
     }
 
     public function getSalt()
