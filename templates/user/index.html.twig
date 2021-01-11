@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des utilisateurs{% endblock %}
+
+{% block body %}
+<h1 class="pb-5">Liste des utilisateurs</h1>
+    <a href="{{path('user_create')}}" class="btn btn-primary">Ajouter un utilisateur</a>
+    <p></p>
+    <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th>Nom</th>
+      <th>Prénoms</th>
+      <th>Email</th>
+      <th>Sexe</th>
+      <th>Adresse</th>
+      <th>Code Postal</th>
+      <th>Ville</th>
+      <th>Inscrit à la newletter</th>
+      <th>Statut</th>
+      <th>Role</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in users %}
+        <tr>   
+            <td>{{user.lastname}}</td>
+            <td>{{user.firstname}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.gender}}</td>
+            <td>{{user.address}}</td>
+            <td>{{user.zipCode}}</td>
+            <td>{{user.city}}</td>
+            <td>{{user.acceptNewletter}}</td>
+            <td>{{user.enable}}</td>
+            <td>{{user.role.roleName}}</td>
+            <td>
+                <a href="{{path('user_edit',{'id': user.id})}}">Edit</a>
+                <a href="{{path('user',{'id': user.id})}}">Sup</a>
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}

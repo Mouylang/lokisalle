@@ -257,29 +257,7 @@ class User implements UserInterface
 
         return $this;
     }
-
-    // ----------- implementation de UserInterface------
-
-    public function getUsername()
-    {
-        return $this->login;
-    }
-
-    public function getRoles()
-    {
-        return ['ROLE_MEMBER'];
-    }
-
-    public function getSalt()
-    {
-        return "j'adore Macron et le PHP ;) ";
-    }
-
-    public function eraseCredentials()
-    {
-        
-    }
-
+   
     /**
      * @return Collection|Comment[]
      */
@@ -375,5 +353,32 @@ class User implements UserInterface
 
         return $this;
     }
+
+     // ----------- implementation de UserInterface------
+
+     public function getUsername()
+     {
+         return $this->login;
+     }
+ 
+     public function getRoles()
+     {
+         $roles = array();
+         foreach($this->role as $role){
+            $roles[]= $role->getRoleName();
+         }
+         return $roles;
+
+     }
+ 
+     public function getSalt()
+     {
+         return "j'adore Macron et le PHP ;) ";
+     }
+ 
+     public function eraseCredentials()
+     {
+         
+     }
 
 }

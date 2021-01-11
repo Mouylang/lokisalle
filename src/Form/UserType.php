@@ -2,34 +2,34 @@
 
 namespace App\Form;
 
+use App\Entity\Role;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RegistrationType extends AbstractType
+class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('login')
-            ->add('password',PasswordType::class)
-            ->add('confirmPassword',PasswordType::class)
+            ->add('password')
             ->add('lastname')
             ->add('firstname')
             ->add('email')
-            ->add('gender',ChoiceType::class, [
-                'choices' => [
-                    'f' => 'f',
-                    'm' => 'm',
-                ],
-            ])
+            ->add('gender')
             ->add('city')
             ->add('zipCode')
             ->add('address')
+            ->add('enabled')
             ->add('acceptNewletter')
+            ->add('role', EntityType::class,[
+                'class'=> Role::class,
+                'multiple'=>true,
+                'choice_label'=> 'roleName'
+            ])
         ;
     }
 

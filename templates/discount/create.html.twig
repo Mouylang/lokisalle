@@ -8,6 +8,17 @@
     {% endif %} 
     {{form_start(formDiscount)}}
 
+    {{
+        form_row(formDiscount.discountCode,{
+        'attr':{'placeholder':'Entrez un code promo'},
+        'label': 'Code Promo' })
+    }}
+
+    {{
+        form_row(formDiscount.reduction,{
+        'attr':{'placeholder':'Entrez une réduction en pourcentage'},
+        'label': 'Réduction en %' })
+    }}
 
      {{form_widget(formDiscount)}}
     {% if editMode %}

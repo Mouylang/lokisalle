@@ -64,5 +64,14 @@ class ProductController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/product/{id}/delete", name="product_delete")
+     */
+    public function delete(Product $product,EntityManagerInterface $manager){
+        $manager->remove($product);
+        $manager->flush();
+        return $this->redirectToRoute('product');
+
+    }
 
 }

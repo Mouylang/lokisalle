@@ -8,6 +8,32 @@
      {% endif %}
     {{form_start(formProduct)}}
 
+    {{
+        form_row(formProduct.checkinAt,{
+        'attr':{'placeholder':'Entrez une date d\'arrivée'},
+        'label': 'Date d\'arrivée' })
+    }}
+    {{
+        form_row(formProduct.checkoutAt,{
+        'attr':{'placeholder':'Entrez une date de départ'},
+        'label': 'Date de départ' })
+    }}
+    {{
+        form_row(formProduct.price,{
+        'attr':{'placeholder':'Entrez le prix de vente en € TTC'},
+        'label': 'Prix en € TTC' })
+    }}
+    {{
+        form_row(formProduct.room,{
+        'attr':{'placeholder':'Choisissez une salle' },
+        'label': 'Nom des salles disponibles'})
+    }}
+    {{
+        form_row(formProduct.discount,{
+        'attr':{'placeholder':'Voici les réductions disponibles' },
+        'label': 'Choississez une réduction'})
+    }}
+    
     {{form_widget(formProduct)}}
     {% if editMode %}
     <input type="submit" class="btn btn-primary" value="Modifier le produit">

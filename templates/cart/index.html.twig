@@ -8,7 +8,7 @@
 
     
      {% if isEmpty %}
-        <p>Votre panier est vide</p>
+        <p>Votre panier est vide // une image</p>
 
     {% else %}
         <ul>
@@ -18,7 +18,29 @@
         </ul>
     
         <p>Prix total du panier : {{totalAmount}} €</p>
-        <a href="#" class="btn btn-primary">Commander</a>
+
+        <button data-toggle="modal" data-target="#modal_simple" class="btn btn-success" type="button">  Commander </button>
+        <!-- Modal en cas de suppression d une salle -->
+        <div id="modal_simple" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmer la commande</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Chez Lokisalle le paiement est automatiquement prélevé sur votre compte (ou pas 😉)!</p>
+                <p>En cliquant sur valider et payer, vous acceptez les conditions générales de vente.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <a href="{{path('place_order')}}" class="btn btn-success">Valider et payer</a>
+            </div>
+            </div>
+        </div> <!-- modal-bialog .// -->
+        </div> <!-- modal.// -->
 
 
     {% endif %}

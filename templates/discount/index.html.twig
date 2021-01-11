@@ -8,11 +8,11 @@
     <a href="{{path('discount_create')}}" class="btn btn-primary">Ajouter un code Promo</a>
     <p></p>
     <table class="table">
-  <thead class="thead-dark">
+  <thead class="thead-dark text-align-center">
     <tr>
       <th>Code promotion</th>
       <th>Reduction %</th>
-      <th>Action</th>
+      <th colspan=2>Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -21,9 +21,11 @@
             <td>{{discount.discountCode}}</td>
             <td>{{discount.reduction}}</td>
             <td>
-                <a href="{{path('discount_edit',{'id': discount.id})}}">Edit</a>
-                <a href="{{path('discount_delete',{'id': discount.id})}}">Sup</a>
-            </td>
+                <a href="{{path('discount_edit',{'id': discount.id})}}"><span class="text-primary"><i class="fas fa-edit"></i></span></a>
+                
+
+            <a href="{{path('discount_delete',{'id': discount.id})}}"><span class="text-danger"><i class="fas fa-trash-alt"></i></span></a>
+            <td>
         </tr>
     {% endfor %}
   </tbody>

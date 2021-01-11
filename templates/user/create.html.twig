@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% form_theme formUser 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+    {% if editMode %}
+     <h1>Modifier un utilisateur</h1>
+     {% else %}
+     <h1>Création d'un utilisateur</h1>
+     {% endif %}
+    {{form_start(formUser)}}
+
+    {{form_widget(formUser)}}
+    {% if editMode %}
+    <input type="submit" class="btn btn-primary" value="Modifier l'utilisateur">
+    {% else %}
+    <input type="submit" class="btn btn-primary" value="Créer l'utilisateur">
+    {% endif %}
+    <a href="{{path('user')}}" class="btn btn-secondary">Annuler</a>
+
+
+    {{form_end(formUser)}}
+{% endblock %}
