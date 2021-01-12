@@ -63,9 +63,6 @@ class Room
 
     /**
      * @Assert\NotBlank
-     * @Assert\Url(
-     *    message = "L'url '{{ value }}' n'est pas valide",
-     * )
      * @Assert\Length(
      *      min = 1,
      *      max = 200,

@@ -27,23 +27,28 @@
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="{{path('product')}}">Nos produits
-                        <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{path('room')}}">nos salles</a>
+                        <a class="nav-link" href="{{path('room')}}">Nos salles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Recherche</a>
                     </li>
                     
-                    <li class="nav-item">
+                    {% if not app.user %}
+                         <li class="nav-item">
                         <a class="nav-link" href="{{path('security_registration')}}">S'inscrire</a>
                     </li>
-                    {% if not app.user %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{path('security_login')}}">Se connecter</a>
                         </li>
                     {% else %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{path('security_logout')}}">Se déconnecter</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('cart')}}">Voir mon panier</a>
                         </li>
                     {% endif %}
                     {% if is_granted('ROLE_ADMIN') %}
@@ -54,28 +59,25 @@
                         <a class="dropdown-item" href="{{path('discount')}}">Gestion des codes Promo</a>
                         <a class="dropdown-item" href="{{path('product')}}">Gestion des produits</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Gestion des membres</a>
+                        <a class="dropdown-item" href="{{path('user')}}">Gestion des membres</a>
                         </div>
                     </li>
                     {% endif %}
                 </ul>
-                <form class="form-inline my-2 my-lg-0" data-children-count="1">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                </form>
             </div>
         </nav>
         <div class="container pt-5 pb-5">
             {% block body %}{% endblock %}
         </div>
-        <footer class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="p-3">&nbsp;</div>
+        <footer class="navbar navbar-expand-lg navbar-dark bg-primary fixed-bottom">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">CGV</a>
+                    <a class="nav-link" href="{{path('home_cgv')}}">CGV</a>
                 </li>
                     
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Mentions Légales</a>
+                    <a class="nav-link" href="{{path('home_mentionslegales')}}">Mentions Légales</a>
                    </li>
             </ul>
         </footer>

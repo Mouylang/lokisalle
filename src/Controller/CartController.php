@@ -16,25 +16,51 @@ class CartController extends AbstractController
     /**
      * @Route("/cart", name="cart")
      */
-    public function index(SessionInterface $session,ProductRepository $productRepository): Response
-    {
+    public function index(SessionInterface $session,ProductRepository $productRepository,Request $request): Response
+    {   
+         $postedCode = $request->get('discountCode');
+       
         $cart = $session->get('cart', new Cart());
+        
         $ids=$cart->getAllProduct();
-
         $products = $productRepository->findById($ids);
 
+        $validCode = true;
+        if($postedCode != null){
+            $validCode = false;
+            foreach($products as $product){
+                if ($product->sumbitDiscountCode($postedCode)){
+                    $validCode=true;
+                    $cart->addDiscountCode($postedCode);
+                    $session->set('cart', $cart);
+                }
+            }
+        }
+        
+        $codes = $cart->getAllDiscountCode();
+
+        dump($codes);
+
         $isEmpty = count($products) == 0;
+        
+      
+
 
         $totalAmount = 0;
         foreach($products as $product){
-            $totalAmount += $product->getPrice();
+            foreach($codes as $code){
+                $product->sumbitDiscountCode($code);
+            }
+            $totalAmount += $product->getFinalPrice();
+
         }
 
-
+    
         return $this->render('cart/index.html.twig', [
             'products' => $products,
             'totalAmount' => $totalAmount,
-            'isEmpty'=> $isEmpty
+            'isEmpty'=> $isEmpty,
+             'validCode'=>$validCode
         ]);
     }
 

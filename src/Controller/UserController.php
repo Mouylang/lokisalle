@@ -20,7 +20,8 @@ class UserController extends AbstractController
     {
         $users = $userRepository->findAll();
         return $this->render('user/index.html.twig', [
-            '$users' => $users,
+            'users' => $users,
+            
         ]);
     }
 

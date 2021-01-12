@@ -1,4 +1,9 @@
 {% extends 'base.html.twig' %}
+
+{% block meta %}
+  <meta name="description" content="Lokisalle - creation d'utilisateur" />
+{% endblock %}
+
 {% form_theme formUser 'bootstrap_4_layout.html.twig' %}
 {% block body %}
     {% if editMode %}
@@ -7,6 +12,31 @@
      <h1>Création d'un utilisateur</h1>
      {% endif %}
     {{form_start(formUser)}}
+    {{
+        form_row(formUser.login,{
+        'attr':{'placeholder':'Entrez votre pseudo'},
+        'label': 'Login' })
+    }}
+    {{
+        form_row(formUser.password,{
+        'attr':{'placeholder':'Entrez votre mot de passe'},
+        'label': 'Mot de passe' })
+    }}
+    {{
+        form_row(formUser.lastname,{
+        'attr':{'placeholder':'Entrez votre nom'},
+        'label': 'Nom' })
+    }}
+    {{
+        form_row(formUser.firstname,{
+        'attr':{'placeholder':'Entrez votre prénom'},
+        'label': 'Prénom' })
+    }}
+    {{
+        form_row(formUser.email,{
+        'attr':{'placeholder':'Entrez votre adresse email'},
+        'label': 'Adresse email' })
+    }}
 
     {{form_widget(formUser)}}
     {% if editMode %}

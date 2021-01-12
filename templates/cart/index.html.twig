@@ -1,25 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon <i class="fas fa-parking-circle-slash    "></i>{% endblock %}
+{% block title %}Mon panier{% endblock %}
 
 {% block body %}
-<h1>La liste des produits dans mon panier</h1>
-    <a href="{{path('product')}}" class="btn btn-primary">Continuer mes achats</a>
-
+<h1 class="text-center pb-3">La liste des produits dans mon panier</h1>
     
+
      {% if isEmpty %}
         <p>Votre panier est vide // une image</p>
 
     {% else %}
-        <ul>
+        <table class="table">
+            <thead class="thead-dark text-align-center">
+                <tr>
+                    <td>Nom de la salle</td>
+                    <td>Date d'arrivée</td>
+                    <td>Date de départ</td>
+                    <td>Prix</td>
+                    <td>Code réduction</td>
+                    <td>Montant</td>
+                    <td>Action</td>
+                </tr>
+            </thead>
+            <tbody>
         {% for product in products %}
-            <li><a href="{{path('product_show',{'id': product.id})}}">{{product.room.title}} du {{product.checkinAt|date('d/m/Y')}} au {{product.checkoutAt|date('d/m/Y')}} ({{product.price}} €)</a></li>
+                <tr>
+                    <td><a href="{{path('product_show',{'id': product.id})}}">{{product.room.title}}</a></td>
+                    <td>{{product.checkinAt|date('d/m/Y')}}</td>
+                    <td>{{product.checkoutAt|date('d/m/Y')}}</td>
+                    <td>{{product.price}} €</td>
+                    <td>{{product.usedDiscountCode}} </td>
+                    <td> {{product.finalPrice}} €</td>
+                    <td><a href="{{path('cart_remove',{'id': product.id})}}"><span class="text-danger"><i class="fas fa-trash-alt"></i></span></a></td>
+                </tr>
         {% endfor %}
-        </ul>
-    
-        <p>Prix total du panier : {{totalAmount}} €</p>
+                <tr>
+                    <td>Montant total</td>
+                    <td colspan="3">{{totalAmount}} €</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="pb-3">
+        <form  method="post" action="{{path('cart')}}">
+        {% if not validCode %}<p class="text-danger">Ce code n'est valide pour aucun des produits du panier!</p>
+        {% endif %}
+        <label>Code promo : </label>
+        <input type="text" class="form-control-sm" name="discountCode">
+        <button type="submit" class="btn btn-success btn-sm">Vérifiez</a>
+        </form>
+        </div>
+        <button data-toggle="modal" data-target="#modal_simple" class="btn btn-success" type="button">Commander</button>
+        <a href="{{path('product')}}" class="btn btn-primary">Continuer mes achats</a>
 
-        <button data-toggle="modal" data-target="#modal_simple" class="btn btn-success" type="button">  Commander </button>
         <!-- Modal en cas de suppression d une salle -->
         <div id="modal_simple" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">

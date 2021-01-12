@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class UserType extends AbstractType
 {
@@ -19,7 +20,12 @@ class UserType extends AbstractType
             ->add('lastname')
             ->add('firstname')
             ->add('email')
-            ->add('gender')
+            ->add('gender',ChoiceType::class, [
+                'choices' => [
+                    'f' => 'f',
+                    'm' => 'm',
+                ],
+            ])
             ->add('city')
             ->add('zipCode')
             ->add('address')

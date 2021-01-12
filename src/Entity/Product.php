@@ -148,4 +148,40 @@ class Product
 
         return $this;
     }
+
+
+    //-------
+    private $useDiscount=false;
+
+    public function sumbitDiscountCode(string $code): bool{
+        if(isset($this->discount) && $this->discount->getDiscountCode() == $code){
+             $this->useDiscount = true;
+             return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function getUsedDiscountCode():string{
+        if(!$this->useDiscount){
+            return "";
+        }else{
+            return $this->discount->getDisplayName();
+        }
+    }
+
+    public function getFinalPrice() :int {
+
+        if(!isset($this->price)){
+            return 0;
+        }
+
+        if ($this->useDiscount){
+            return $this->price * (100-$this->discount->getReduction())/100;
+        }else{
+            return $this->price;
+        }
+    }
+
+
 }
