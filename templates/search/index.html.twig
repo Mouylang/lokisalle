@@ -1,18 +1,33 @@
 {% extends 'base.html.twig' %}
 {% block meta %}
-  <meta name="description" content="Lokisalle - liste des salles disponibles" />
+  <meta name="description" content="Lokisalle - rechercher un produit" />
 {% endblock %}
 
-{% block title %}Liste de toutes les salles disponibles{% endblock %}
+{% block title %}Lokissale-recherche{% endblock %}
 
 {% block body %}
-<h1 class="text-center pb-5 text-info">Liste de toutes les salles disponibles</h1>
+<h1>Faire une recherche</h1>
+    <form action="#" method="post">
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="category">Catégories</label>
+            <select class="form-select" id="category" name="category" required>
+                <option selected>Choisir...</option>
+                <option value="conference">Conférence</option>
+                <option value="reunion">Réunion</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input placeholder="Date entre le " type="date" name="checkin_at" class="form-control" required>
+            <input placeholder="et le " type="date" name="checkout_at" class="form-control" required>
+            <input placeholder="Capacité" type="text" name="capacity" class="form-control" required>
+            <label for="prix" class="form-label">Prix entre 0 et 2000€</label>
+            <input type="range" name="prix" class="form-range" min="0" max="2000" id="prix" required>   
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Recherche</button>
+        </div>
+    </form>
 
-{% if is_granted("ROLE_ADMIN") %}
-<div class="text-center pb-5">
-    <a href="{{path('product_create')}}" class="btn btn-primary">Ajouter un produit</a>
-</div>
-{% endif %}
 <div class="row">
     {% for product in products %}   
         <div class="card mb-3 col-md-4 offset-md-1">
@@ -41,9 +56,6 @@
         </div>
     {% endfor %}    
   </div>
-<div class="row">
-    
-</div>
 
 
 {% endblock %}

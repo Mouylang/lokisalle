@@ -110,6 +110,11 @@ class User implements UserInterface
      */
     private $orders;
 
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $resetCode;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -379,6 +384,18 @@ class User implements UserInterface
      public function eraseCredentials()
      {
          
+     }
+
+     public function getResetCode(): ?string
+     {
+         return $this->resetCode;
+     }
+
+     public function setResetCode(?string $resetCode): self
+     {
+         $this->resetCode = $resetCode;
+
+         return $this;
      }
 
 }

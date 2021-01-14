@@ -40,9 +40,9 @@
 
     {{form_widget(formUser)}}
     {% if editMode %}
-    <input type="submit" class="btn btn-primary" value="Modifier l'utilisateur">
+    <button type="submit" class="btn btn-primary">Modifier</button>
     {% else %}
-    <input type="submit" class="btn btn-primary" value="Créer l'utilisateur">
+    <button type="submit" class="btn btn-primary">Créer</button>
     {% endif %}
     <a href="{{path('user')}}" class="btn btn-secondary">Annuler</a>
 

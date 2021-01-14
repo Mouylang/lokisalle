@@ -1,83 +1,101 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon panier{% endblock %}
+{% block title %}Mon panier
+{% endblock %}
 
 {% block body %}
-<h1 class="text-center pb-3">La liste des produits dans mon panier</h1>
-    
+	<h1 class="text-center pb-3">La liste des produits dans mon panier</h1>
 
-     {% if isEmpty %}
-        <p>Votre panier est vide // une image</p>
+	{% if isEmpty %}
+		<p class="text-center text-warning fw-bold">Votre panier est vide!!
+			<br>
+			<img src="{{ asset('img/lokisalle_emptyCart.png') }}" class="img-fluid"></p>
+		<p class="text-center">
+			<a href="{{path('product')}}" class="btn btn-primary">Retour à aux produits</a>
+		</p>
+	{% else %}
+		<table class="table">
+			<thead class="thead-dark text-align-center">
+				<tr>
+					<td>Nom de la salle</td>
+					<td>Date d'arrivée</td>
+					<td>Date de départ</td>
+					<td>Prix</td>
+					<td>Code réduction</td>
+					<td>Montant</td>
+					<td>Action</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% for product in products %}
+					<tr>
+						<td>
+							<a href="{{path('product_show',{'id': product.id})}}">{{product.room.title}}</a>
+						</td>
+						<td>{{product.checkinAt|date('d/m/Y')}}</td>
+						<td>{{product.checkoutAt|date('d/m/Y')}}</td>
+						<td>{{product.price}}
+							€</td>
+						<td>{{product.usedDiscountCode}}
+						</td>
+						<td>
+							{{product.finalPrice}}
+							€</td>
+						<td>
+							<a href="{{path('cart_remove',{'id': product.id})}}">
+								<span class="text-danger">
+									<i class="fas fa-trash-alt"></i>
+								</span>
+							</a>
+						</td>
+					</tr>
+				{% endfor %}
+				<tr>
+					<td>Montant total</td>
+					<td colspan="3">{{totalAmount}}
+						€</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="pb-3">
+			<form method="post" action="{{path('cart')}}">
+				{% if not validCode %}
+					<p class="text-danger">Ce code n'est valide pour aucun des produits du panier!</p>
+				{% endif %}
+				<label>Code promo :
+				</label>
+				<input type="text" class="form-control-sm" name="discountCode">
+				<button type="submit" class="btn btn-success btn-sm">Vérifiez</a>
+			</form>
+		</div>
+		<button data-toggle="modal" data-target="#modal_simple" class="btn btn-success" type="button">Commander</button>
+		<a href="{{path('product')}}" class="btn btn-primary">Continuer mes achats</a>
 
-    {% else %}
-        <table class="table">
-            <thead class="thead-dark text-align-center">
-                <tr>
-                    <td>Nom de la salle</td>
-                    <td>Date d'arrivée</td>
-                    <td>Date de départ</td>
-                    <td>Prix</td>
-                    <td>Code réduction</td>
-                    <td>Montant</td>
-                    <td>Action</td>
-                </tr>
-            </thead>
-            <tbody>
-        {% for product in products %}
-                <tr>
-                    <td><a href="{{path('product_show',{'id': product.id})}}">{{product.room.title}}</a></td>
-                    <td>{{product.checkinAt|date('d/m/Y')}}</td>
-                    <td>{{product.checkoutAt|date('d/m/Y')}}</td>
-                    <td>{{product.price}} €</td>
-                    <td>{{product.usedDiscountCode}} </td>
-                    <td> {{product.finalPrice}} €</td>
-                    <td><a href="{{path('cart_remove',{'id': product.id})}}"><span class="text-danger"><i class="fas fa-trash-alt"></i></span></a></td>
-                </tr>
-        {% endfor %}
-                <tr>
-                    <td>Montant total</td>
-                    <td colspan="3">{{totalAmount}} €</td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="pb-3">
-        <form  method="post" action="{{path('cart')}}">
-        {% if not validCode %}<p class="text-danger">Ce code n'est valide pour aucun des produits du panier!</p>
-        {% endif %}
-        <label>Code promo : </label>
-        <input type="text" class="form-control-sm" name="discountCode">
-        <button type="submit" class="btn btn-success btn-sm">Vérifiez</a>
-        </form>
-        </div>
-        <button data-toggle="modal" data-target="#modal_simple" class="btn btn-success" type="button">Commander</button>
-        <a href="{{path('product')}}" class="btn btn-primary">Continuer mes achats</a>
-
-        <!-- Modal en cas de suppression d une salle -->
-        <div id="modal_simple" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Confirmer la commande</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Chez Lokisalle le paiement est automatiquement prélevé sur votre compte (ou pas 😉)!</p>
-                <p>En cliquant sur valider et payer, vous acceptez les conditions générales de vente.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                <a href="{{path('place_order')}}" class="btn btn-success">Valider et payer</a>
-            </div>
-            </div>
-        </div> <!-- modal-bialog .// -->
-        </div> <!-- modal.// -->
+		<!-- Modal en cas de suppression d une salle -->
+		<div id="modal_simple" class="modal fade" tabindex="-1" role="dialog">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Confirmer la commande</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>Chez Lokisalle le paiement est automatiquement prélevé sur votre compte (ou pas 😉)!</p>
+						<p>En cliquant sur valider et payer, vous acceptez les conditions générales de vente.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+						<a href="{{path('place_order')}}" class="btn btn-success">Valider et payer</a>
+					</div>
+				</div>
+			</div>
+			<!-- modal-bialog .// -->
+		</div>
+		<!-- modal.// -->
 
 
-    {% endif %}
-
-
-
+	{% endif %}
 
 {% endblock %}

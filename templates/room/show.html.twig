@@ -27,4 +27,25 @@
       <div class="card-body">
         <a href="{{path('room')}}" class="btn btn-secondary">Revenir à la liste des salles</a>
       </div>
+      <h1>Les produits associés à la salle:</h1>
+      <table class="table">
+        <thead class="thead-dark text-align-center">
+            <tr>
+              <td>nom de la salle</td>
+              <td>Date d'arrivée</td>
+              <td>Date de départ</td>
+              <td>Prix</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in room.products %}
+            <tr> 
+              <td ><a href="{{path('product_show',{'id': product.id})}}">{{product.room.title}}</a></td>
+              <td >{{product.checkinAt|date('d/m/Y h:i',"Europe/Paris")}}</td>
+              <td >{{product.checkoutAt|date('d/m/Y h:i',"Europe/Paris")}}</td>
+              <td >{{product.price}} €</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
 {% endblock %}

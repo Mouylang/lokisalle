@@ -37,10 +37,12 @@
           <td>{{user.zipCode}}</td>
           <td>{{user.city}}</td>
           <td>{{user.acceptNewletter}}</td>
-            {# <td>{{user.enable}}</td> #}
-            {# <td>{{user.role.roleName}}</td> #}
-          <td></td>
-          <td></td>  
+          <td>{{user.enabled}}</td>
+          <td>
+          {% for rolename in user.roles %}
+            {{rolename}} <br>
+          {% endfor %}
+          </td>
           <td><a href="{{path('user_edit',{'id': user.id})}}">Modifier</a></td>  
         </tr>
         {% endfor %}

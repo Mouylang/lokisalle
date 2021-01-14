@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% form_theme profileForm 'bootstrap_4_layout.html.twig' %}
+
+
+{% block title %}La page de l'utilisateur{% endblock %}
+{% block meta %}
+  <meta name="description" content="Lokisalle - creation d'utilisateur" />
+{% endblock %}
+
+
+
+{% block body %}
+{{form_start(profileForm)}}
+
+    {{
+        form_row(profileForm.lastname,{
+        'label': 'Nom' })
+    }}
+    {{
+        form_row(profileForm.firstname,{
+        'label': 'Prénom' })
+    }}
+    {{
+        form_row(profileForm.email,{
+        'label': 'Adresse email' })
+    }}
+
+    {{form_widget(profileForm)}}
+
+    <input type="submit" class="btn btn-primary" value="Sauvegarder mon profil">
+
+    <a href="{{path('profile')}}" class="btn btn-secondary">Annuler</a>
+
+
+    {{form_end(profileForm)}}
+
+{% endblock %}
