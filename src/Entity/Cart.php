@@ -17,6 +17,7 @@ class Cart
         $this->discountCodes = new ArrayCollection();
     }
 
+    //la fonction permet d'ajouter un pour chaque produit 
     public function addProduct(int $product_id)
     {
         if (!$this->product_ids->contains($product_id)) {
@@ -44,5 +45,6 @@ class Cart
     {
         return $this->discountCodes->toArray();
     }
+
 
 }

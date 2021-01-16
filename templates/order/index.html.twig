@@ -1,23 +1,33 @@
 {% extends 'base.html.twig' %}
 {% block meta %}
-  <meta name="description" content="Lokisalle - liste des commandes" />
+  <meta name="description" content="Lokisalle - liste de mes commandes" />
 {% endblock %}
 
-{% block title %}Hello OrderController!{% endblock %}
+{% block title %}Mes commande{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<h1 class="text-info pb-3">Mes commande</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<table class="table">
+			<thead class="thead-dark text-align-center">
+                    <tr>
+                        <th>No de la commande</th>
+                        <th>Date de commande</th>
+                        <th>Montant</th>
+                        <th>détail de commande</th>
+                    </tr>
+			</thead>
+			<tbody>
+				{% for order in orders %}
+					<tr>
+						<td>{{order.id}}</td>
+						<td>{{order.createdAt|date('d/m/Y H:i')}}</td>
+						<td>{{order.totalAmount}}€</td>
+						<td><a href="{{path('order_show',{'id': order.id})}}"/>Détails</a></td>
+					</tr>
+                {%  endfor %}    
+			</tbody>
+		</table>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/mouyl/Dev/lokisalle/src/Controller/OrderController.php'|file_link(0) }}">src/Controller/OrderController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/mouyl/Dev/lokisalle/templates/order/index.html.twig'|file_link(0) }}">templates/order/index.html.twig</a></code></li>
-    </ul>
-</div>
+
 {% endblock %}

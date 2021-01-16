@@ -6,7 +6,7 @@
 {% block title %}Liste de toutes les salles disponibles{% endblock %}
 
 {% block body %}
-<h1 class="text-center pb-5 text-info">Liste de toutes les salles disponibles</h1>
+<h1 class="text-center pb-5 text-info">Liste de toutes les disponibilités</h1>
 
 {% if is_granted("ROLE_ADMIN") %}
 <div class="text-center pb-5">
@@ -28,8 +28,8 @@
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item"><u>Catégorie </u>: {{product.room.category.name}}</li>
-                <li class="list-group-item"><u>Date d'arrivée </u>: du {{product.checkinAt|date('d/m/Y')}} à 09:00</li>
-                <li class="list-group-item"><u>Date de départ </u>: au {{product.checkoutAt|date('d/m/Y')}} à 18:00</li>
+                <li class="list-group-item"><u>Date d'arrivée </u>: du {{product.checkinAt|date('d/m/Y H:i')}}</li>
+                <li class="list-group-item"><u>Date de départ </u>: au {{product.checkoutAt|date('d/m/Y H:i')}}</li>
                 <li class="list-group-item"><u>Tarif </u>: {{product.price}} €</li>
             </ul>
             <div class="card-body text-center">

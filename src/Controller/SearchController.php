@@ -24,9 +24,8 @@ class SearchController extends AbstractController
             $checkoutAt = $request->get('checkout_at');
             $capacity = $request->get('capacity');
             $price = $request->get('prix');
-            $products = $productRepository->fingByCategory($category,$price,$checkinAt,$checkoutAt,$capacity);
-           
-    
+            $products = $productRepository->fingByCategoryUnProtected($category,$price,$checkinAt,$checkoutAt,$capacity);
+            $isPost = true;
 
         }
         

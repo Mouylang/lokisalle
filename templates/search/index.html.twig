@@ -1,61 +1,84 @@
 {% extends 'base.html.twig' %}
 {% block meta %}
-  <meta name="description" content="Lokisalle - rechercher un produit" />
+	<meta name="description" content="Lokisalle - rechercher un produit"/>
 {% endblock %}
 
-{% block title %}Lokissale-recherche{% endblock %}
+{% block title %}Lokissale-recherche
+{% endblock %}
 
 {% block body %}
-<h1>Faire une recherche</h1>
-    <form action="#" method="post">
-        <div class="input-group mb-3">
-            <label class="input-group-text" for="category">Catégories</label>
-            <select class="form-select" id="category" name="category" required>
-                <option selected>Choisir...</option>
-                <option value="conference">Conférence</option>
-                <option value="reunion">Réunion</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <input placeholder="Date entre le " type="date" name="checkin_at" class="form-control" required>
-            <input placeholder="et le " type="date" name="checkout_at" class="form-control" required>
-            <input placeholder="Capacité" type="text" name="capacity" class="form-control" required>
-            <label for="prix" class="form-label">Prix entre 0 et 2000€</label>
-            <input type="range" name="prix" class="form-range" min="0" max="2000" id="prix" required>   
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Recherche</button>
-        </div>
-    </form>
+	<h1 class="text-info text-center pb-3">Faire une recherche</h1>
+	<form action="#" method="post">
+		<div class="input-group mb-3">
+			<label class="input-group-text" for="category">Catégories</label>
+			<select class="form-select" id="category" name="category" required>
+				<option selected>Choisir...</option>
+				<option value="conference">Conférence</option>
+				<option value="reunion">Réunion</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<input placeholder="Date entre le " type="date" name="checkin_at" class="form-control" required>
+			<input placeholder="et le " type="date" name="checkout_at" class="form-control" required>
+			<input placeholder="Capacité" type="text" name="capacity" class="form-control" required>
+			<label for="prix" class="form-label">Prix entre 0 et 2000€</label>
+			<input type="range" name="prix" class="form-range" min="0" max="2000" id="prix" required>
+		</div>
+		<div class="form-group">
+			<button type="submit" class="btn btn-primary">Recherche</button>
+		</div>
+	</form>
+	{% if isPost %}
+		<div class="row">
+			{% for product in products %}
+				<div class="card mb-3 col-md-4 offset-md-1">
+					<h3 class="card-header">
+						<a href="{{path('product_show',{'id': product.id})}}">{{product.room.title}}</a>
+					</h3>
+					<div class="card-body">
+						<img src="{{product.room.photo}}" class="img-fluid"/>
+						<h5 class="card-title pt-3 text-center">
+							{{product.room.address}}
+							<br>
+							{{product.room.zipCode}}
+							{{product.room.city}}
+						</h5>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<u>Catégorie
+							</u>:
+							{{product.room.category.name}}</li>
+						<li class="list-group-item">
+							<u>Date d'arrivée
+							</u>: du
+							{{product.checkinAt|date('d/m/Y')}}
+							à 09:00</li>
+						<li class="list-group-item">
+							<u>Date de départ
+							</u>: au
+							{{product.checkoutAt|date('d/m/Y')}}
+							à 18:00</li>
+						<li class="list-group-item">
+							<u>Tarif
+							</u>:
+							{{product.price}}
+							€</li>
+					</ul>
+					<div class="card-body text-center">
+						<a href="{{path('product_show',{'id': product.id})}}" class="btn btn-primary ">Afficher le détail</a>
+						{% if is_granted('ROLE_ADMIN') %}
+							<a href="{{path('product_edit',{'id': product.id})}}" class="btn btn-info">Modifier le produit</a>
+						{% endif %}
+					</div>
+				</div>
+			{% endfor %}
 
-<div class="row">
-    {% for product in products %}   
-        <div class="card mb-3 col-md-4 offset-md-1">
-            <h3 class="card-header">
-                <a href="{{path('product_show',{'id': product.id})}}">{{product.room.title}}</a>
-            </h3>
-            <div class="card-body">
-            <img src="{{product.room.photo}}" class="img-fluid"/>
-                <h5 class="card-title pt-3 text-center">
-                {{product.room.address}} <br>
-                {{product.room.zipCode}} {{product.room.city}}
-                </h5>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"><u>Catégorie </u>: {{product.room.category.name}}</li>
-                <li class="list-group-item"><u>Date d'arrivée </u>: du {{product.checkinAt|date('d/m/Y')}} à 09:00</li>
-                <li class="list-group-item"><u>Date de départ </u>: au {{product.checkoutAt|date('d/m/Y')}} à 18:00</li>
-                <li class="list-group-item"><u>Tarif </u>: {{product.price}} €</li>
-            </ul>
-            <div class="card-body text-center">
-                <a href="{{path('product_show',{'id': product.id})}}" class="btn btn-primary ">Afficher le détail</a>
-                {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{path('product_edit',{'id': product.id})}}" class="btn btn-info">Modifier le produit</a>
-                {% endif %}
-            </div>
-        </div>
-    {% endfor %}    
-  </div>
-
+		</div>
+		{% if products|length == 0 %}
+			<p>Désolé nous n'avons pas trouvé de salle qui correspond à vos critères de recherche.</p>
+			<div class="text-center"><img src="{{ asset('img/no-search-found.png') }}" class="img-fluid"></div>
+		{% endif %}
+	{% endif %}
 
 {% endblock %}

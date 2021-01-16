@@ -46,17 +46,17 @@ class ProductRepository extends ServiceEntityRepository
             INNER JOIN product.room room
             INNER JOIN room.category category
             WHERE category.name = :catName and product.price < :price and :checkinat < product.checkinAt AND :checkoutat > product.checkoutAt  and :capacity < room.capacity '
-        )->setParameter('catName', $category)
-        ->setParameter('price',$price)
-        ->setParameter('checkinat', $checkinAt)
-        ->setParameter('checkoutat', $checkoutAt)
-        ->setParameter('capacity', $capacity);
+            )->setParameter('catName', $category)
+            ->setParameter('price',$price)
+            ->setParameter('checkinat', $checkinAt)
+            ->setParameter('checkoutat', $checkoutAt)
+            ->setParameter('capacity', $capacity);
         
-       
         
-        return $query->getResult();
+            return $query->getResult();
 
     }
+
 
     /*
     public function findOneBySomeField($value): ?Product

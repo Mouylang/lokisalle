@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Order;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -18,6 +19,21 @@ class OrderRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Order::class);
     }
+
+    public function fingByUser(User $user){
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT commande
+            FROM App\Entity\Order commande
+            WHERE commande.user = :user '
+            )->setParameter('user', $user);
+        
+            return $query->getResult();
+
+    }
+
+
 
     // /**
     //  * @return Order[] Returns an array of Order objects
@@ -47,4 +63,6 @@ class OrderRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
 }

@@ -150,14 +150,17 @@ class Product
     }
 
 
-    //-------
+    //-------code php complémentaire pour gérer les codes promos
     private $useDiscount=false;
 
     public function sumbitDiscountCode(string $code): bool{
+        
         if(isset($this->discount) && $this->discount->getDiscountCode() == $code){
+            //si le code soumis est le même que celui enregistré en base la propriété usediscount passe à true et la fonction retourne true
              $this->useDiscount = true;
              return true;
         }else{
+            //sinon la condition retourne false
             return false;
         }
     }
@@ -171,11 +174,7 @@ class Product
     }
 
     public function getFinalPrice() :int {
-
-        if(!isset($this->price)){
-            return 0;
-        }
-
+        // si un code a été soumis et validé la variable usediscount est devenue à true, on va appliquer la réduction
         if ($this->useDiscount){
             return $this->price * (100-$this->discount->getReduction())/100;
         }else{

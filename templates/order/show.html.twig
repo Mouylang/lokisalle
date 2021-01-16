@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block meta %}
+  <meta name="description" content="Lokisalle - détails de ma commande" />
+{% endblock %}
+
+{% block title %}Détails de ma commande{% endblock %}
+    
+{% block body %}
+    <h1 class="text-info text-center pb-3">Détail de ma commande no: {{order.id}}  passée le {{order.createdAt|date('d/m/Y H:i')}}</h1>
+    <table class="table">
+		<thead class="thead-dark text-align-center">
+            <tr>
+                <th>Nom de la salle</th>
+                <th>Date d'arrivée</th>
+                <th>Date de départ</th>
+                <th>Prix standard (*)</th>
+            </tr>
+		</thead>
+		<tbody>
+        {% for orderItem in order.orderItems %}
+            <tr>
+                <td>{{orderItem.product.room.title}}</td>
+                <td>{{orderItem.product.checkinAt|date('d/m/Y H:i')}}</td>
+                <td>{{orderItem.product.checkoutAt|date('d/m/Y H:i')}}</td>
+                <td>{{orderItem.product.price}} €</td>
+            </tr>
+        {% endfor %}
+            <tr>
+                <td class="text-right"colspan="3">Montant Total réel payé</td>
+                <td>{{order.totalAmount}} €</td>
+            </tr>    
+        </tbody>
+    </table>
+    <p class="font-italic text-warning">(*) Prix des produits sans tenir compte des éventuelles réductions accordées</p>
+    <td><a href="{{path('order')}}" class="btn btn-primary"/>Voir liste de mes commandes</a></td>    
+{% endblock %}
