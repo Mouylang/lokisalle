@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ContactController!
+{% endblock %}
+
+{% block body %}
+	<h1>Formulaire de contact</h1>
+	{% if isSent %}
+		<p class="text-success">Votre message a été envoyé !</p>
+	{% else %}
+		<form method="POST">
+			<div class="pb-2">
+				<label for="suject">Votre sujet :</label>
+				<input type="text" name="subject" class="form-control" autofocus maxlength="30" size="30" required/>
+			</div>
+			<div class="pb-2">
+				<textarea type="text" name="message" class="form-control" rows="8" cols="45" placeholder="Votre message" required></textarea>
+			</div>
+			<input class="btn btn-primary" type="submit" value="Envoyer"/>
+		</form>
+	{% endif %}
+{% endblock %}

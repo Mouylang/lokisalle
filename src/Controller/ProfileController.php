@@ -47,7 +47,7 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/profile/resetpassword", name="profile_resetpassword")
+     * @Route("/resetpassword", name="profile_resetpassword")
      */
     public function resetPassword(MailerInterface $mailer, Request $request, UserRepository $userRepository,EntityManagerInterface $manager)
     {

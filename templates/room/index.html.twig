@@ -1,77 +1,82 @@
 {% extends 'base.html.twig' %}
 {% block meta %}
-  <meta name="description" content="Lokisalle - liste des salles" />
+	<meta name="description" content="Lokisalle - liste des salles"/>
 {% endblock %}
 
 {% block title %}
- liste des salles
+	liste des salles
 {% endblock %}
 
 {% block headScripts %}
-    <script src="/js/lokisalle_room.js"></script>
+	<script src="/js/lokisalle_room.js"></script>
 {% endblock %}
 
 {% block body %}
 
-  <h1 class="text-center pb-5 text-info">La liste des salles de réunion</h1>
-   
- 
-  {% if is_granted('ROLE_ADMIN') %}
-   <div class="text-center pb-3">
-   <a href="{{path('room_create')}}" class="btn btn-primary">Ajouter une salle</a>
-   </div>
-  {% endif %} 
+	<h1 class="text-center pb-5 text-info">La liste des salles de réunion</h1>
 
-<div class="row">
-    {% for room in rooms %}    
-        <div class="card mb-3 col-md-4 offset-md-1">
-            <h3 class="card-header text-center text-success">
-                {{room.title}}
-            </h3>
-            <div class="card-body text-center">
-            <img src="{{room.photo}}" class="img-fluid"/>
-                <h5 class="card-title pt-2 text-center">
-                {{room.address}} <br>
-                {{room.zipCode}} {{room.city}}
-                </h5>
-            </div>
-            <div class="card-body">
-                <p class="card-text text-justify">
-                {{room.description}}
-                </p>
-            </div>
-            <div class="card-body text-center pb-2">
-                <a href="{{path('room_show',{'id': room.id})}}" class="btn btn-primary">Afficher la salle</a>
-            </div>
-                {% if is_granted('ROLE_ADMIN')%}
-            <div class="card-body text-center pb-2">    
-                <a href="{{path('room_edit',{'id': room.id})}}" class="btn btn-success">Modifier la salle</a>
-                <button data-toggle="modal" data-target="#modal_simple" class="btn btn-danger js-btn-delete-room" value="{{room.id}}" type="button">  Supprimer  </button>
-                {% endif %}    
-            </div>
-        </div>
-    {% endfor %}    
-  </div>
-    <!-- Modal en cas de suppression d une salle -->
-  <div id="modal_simple" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Etes-vous sûr de vouloir supprimer ?</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>Si vous supprimez la salle, vous risquez de tout supprimer aussi : 
-          les produits, les avis,... associés à cette salle!</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-          <a href="#" class="btn btn-danger js-confirm-suppression">Confirmer la suppression</a>
-        </div>
-      </div>
-    </div>
-</div> <!-- fin du modal.// -->
+
+	{% if is_granted('ROLE_ADMIN') %}
+		<div class="text-center pb-3">
+			<a href="{{path('room_create')}}" class="btn btn-primary">Ajouter une salle</a>
+		</div>
+	{% endif %}
+
+	<div class="row">
+		{% for room in rooms %}
+			<div class="card mb-3 col-md-4 offset-md-1">
+				<h3 class="card-header text-center text-success">
+					{{room.title}}
+				</h3>
+				<div class="card-body text-center">
+					<img src="{{room.photo}}" class="img-fluid"/>
+					<h5 class="card-title pt-2 text-center">
+						{{room.address}}
+						<br>
+						{{room.zipCode}}
+						{{room.city}}
+					</h5>
+				</div>
+				<div class="card-body">
+					<p class="card-text text-justify">
+						{{room.description}}
+					</p>
+				</div>
+				<div class="card-body text-center pb-2">
+					<a href="{{path('room_show',{'id': room.id})}}" class="btn btn-primary">Afficher la salle</a>
+				</div>
+				{% if is_granted('ROLE_ADMIN')%}
+					<div class="card-body text-center pb-2">
+						<a href="{{path('room_edit',{'id': room.id})}}" class="btn btn-success">Modifier la salle</a>
+						<button data-toggle="modal" data-target="#modal_simple" class="btn btn-danger js-btn-delete-room" value="{{room.id}}" type="button">
+							Supprimer
+						</button>
+					</div>
+				{% endif %}
+			</div>
+		{% endfor %}
+	</div>
+	<!-- Modal en cas de suppression d une salle -->
+	<div id="modal_simple" class="modal fade" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Etes-vous sûr de vouloir supprimer ?</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>Si vous supprimez la salle, vous risquez de tout supprimer aussi : 
+						          les produits, les avis,... associés à cette salle!</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+					<a href="#" class="btn btn-danger js-confirm-suppression">Confirmer la suppression</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- fin du modal.// -->
 
 {% endblock %}

@@ -34,6 +34,7 @@
             </ul>
             <div class="card-body text-center">
                 <a href="{{path('product_show',{'id': product.id})}}" class="btn btn-primary ">Afficher le détail</a>
+
                 {% if is_granted('ROLE_ADMIN') %}
                 <a href="{{path('product_edit',{'id': product.id})}}" class="btn btn-info">Modifier le produit</a>
                 {% endif %}

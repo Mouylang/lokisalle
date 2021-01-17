@@ -1,0 +1,27 @@
+{% if comments|length == 0  %}
+	<p>Aucun avis pour cette salle</p>
+
+{% else %}
+	<p>Liste des avis</p>
+<table class="table">
+	<thead class="thead-dark text-align-center">
+		<tr>
+			<th>Auteur</th>
+			<th>note</th>
+			<th>commentaire</th>
+			<th>Date</th>
+		</tr>
+	</thead>
+	<tbody>
+
+		{% for comment in comments %}
+			<tr>
+				<td>{{comment.author.firstname}}</td>
+				<td>{{comment.score}}</td>
+				<td>{{comment.content}}</td>
+				<td>{{comment.createdAt|date('d/m/Y H:i')}}</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endif %}
