@@ -1,10 +1,180 @@
 {% extends 'base.html.twig' %}
 {% block meta %}
-  <meta name="description" content="Lokisalle - Site de réservation salles de réunion en France" />
+	<meta name="description" content="Lokisalle - Site de réservation salles de réunion en France - Paris-Lyon-Marseilles"/>
 {% endblock %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Lokisalle- Page d'accueil
+{% endblock %}
+
 
 {% block body %}
-<h1>Je suis la page d'accueil</h1>
-{% endblock %}
+	<h1 class="text-center pb-3" id="home_title">Réservez le lieu idéal pour tous vos évènements professionnels !</h1>
+	<p class="text-center"><img src="{{ asset('img/salle_luxembourg-12pers.jpg')}}" class="img-fluid rounded img-thumbnail"></p>
+	<div class="row">
+		<div class="col-md-12">
+			<h2 class="text-primary pb-3">Qui sommes-nous ?</h2>
+			<p class="text-justify">Depuis 2020, Lokisalle s’est spécialisée dans la location de salles de réunion à Paris, Lyon et Marseille.
+								Salles de formation, de réunion, de séminaire, de formation, ou encore de conférence,
+								nous vous proposons une large palette de salles à disposition de tous les professionnels. 
+								L’objectif est de permettre à chacun de créer un événement sur-mesure qui lui convient, 
+								pour célébrer un lancement de produit, un team building, pour mener à bien une formation ou
+								encore pour organiser un cocktail dinatoire en petit ou en grand comité. Avec notre partenaire culinaire, 
+								spécialisé dans la gastronomie française, nous avons à cœur de veiller à votre satisfaction.
+			</p>
+		</div>
+	</div>
+	<h2 class="text-primary pt-3 ">Nos 3 prochaines dates disponibles chez LOKISALLE</h2>
+	<div class="row text-center pt-5 ">
+
+
+		{% for product in products %}
+			<div class="card col-md-4 ">
+				<div class="card-body">
+					<img src="{{product.room.photo}}" class="img-fluid"/>
+					<h5 class="card-title pt-3 text-center">
+						{{product.room.address}}
+						<br>
+
+						{{product.room.zipCode}}
+						{{product.room.city}}
+					</h5>
+				</div>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">
+						<u>Catégorie
+						</u>:
+						{{product.room.category.name}}</li>
+					<li class="list-group-item">
+						<u>Date d'arrivée
+						</u>: du
+						{{product.checkinAt|date('d/m/Y H:i')}}</li>
+					<li class="list-group-item">
+						<u>Date de départ
+						</u>: au
+						{{product.checkoutAt|date('d/m/Y H:i')}}</li>
+					<li class="list-group-item">
+						<u>Tarif
+						</u>:
+						{{product.price}}
+						€</li>
+				</ul>
+				<div class="card-body text-center">
+					<a href="{{path('product_show',{'id': product.id})}}" class="btn btn-primary ">Afficher le détail</a>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<h1 class="text-center pt-5">Avis des clients chez Lokisalle</h1>
+			<p class="text-center">
+				<img src="{{asset('img/avis.png')}}" alt="avis verifies" class="p-5 img-fluid"/>
+			</p>
+		</div>
+	</div>
+	<div class="row">
+		{% for comment in comments %}
+			<div class="card col-md-3 offset-md-1" id="commentcell">
+				<div class="card-header">
+					<p class="p-3 card-title">
+						Vos Avis
+						{{comment.score}}/5
+						{% if comment.score == 1 %}
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="far fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="far fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="far fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="far fa-star iconcolor"></i>
+							</span>
+						{% elseif comment.score == 2 %}
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="far fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="far fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="far fa-star iconcolor"></i>
+							</span>
+						{% elseif comment.score == 3 %}
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="far fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="far fa-star iconcolor"></i>
+							</span>
+						{% elseif comment.score == 4 %}
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="far fa-star iconcolor"></i>
+							</span>
+
+						{% elseif comment.score == 5 %}
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+						{% else %}
+							<p>Pas de note</p>
+						{% endif %}
+					</p>
+				</div>
+				<div class="card-body">
+					<p>
+						<a href="{{path('room_show',{'id': comment.room.id})}}">{{comment.room.title}}</a>
+					</p>
+
+					<p class="font-italic">{{comment.content}}</p>
+					<p>{{comment.author.firstname}}</p>
+					<p class="text-muted">{{comment.createdAt|date('d/m/Y H:i')}}</p>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>{% endblock %}

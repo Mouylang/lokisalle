@@ -1,3 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda&family=Fraunces:wght@300&display=swap');
+
+/*general*/
+*{
+ margin: auto 0;
+}
+#blockbody{
+	min-height: 60vh;
+}
+/* home page title*/
+
+#hometitle{
+	font-family: 'Bodoni Moda', serif;
+}
+/*footer*/
+#footer1{
+	background-color: bisque;
+	text-align: center;
+}
+#footer2{
+	background-color: #0f6379;
+	color:cornsilk;
+	text-align: center;
+}
+#footer3{
+	background-color: rgb(83, 87, 90);
+}
+#footer4{
+	background-color:  rgb(83, 87, 90);
+	
+}
+.printer{
+	cursor: pointer;
+}
+/* avis */
+#commentcell{
+	border:1px solid rgb(136, 201, 231);
+	border-radius: 3px 2px;
+	box-shadow: 2px 2px 10px rgb(83, 87, 90);
+	
+}
+
 /*modals*/
 .modal .modal-dialog-aside{
 	width: 350px;

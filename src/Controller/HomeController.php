@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Repository\CommentRepository;
+use App\Repository\ProductRepository;
+use App\Repository\RoomRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,9 +14,17 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(): Response
+    public function index(ProductRepository $productRepository,CommentRepository $commentRepository): Response
     {
-        return $this->render('home/index.html.twig');
+        $products = $productRepository->findNext3availableProducts();
+
+        $comments = $commentRepository->findLast3Comments();
+
+        return $this->render('home/index.html.twig',[
+            'products' => $products,
+            'comments' => $comments
+
+        ]);
     }
 
     /**

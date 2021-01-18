@@ -57,6 +57,29 @@ class ProductRepository extends ServiceEntityRepository
 
     }
 
+    public function findNext3availableProducts(){
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            "SELECT product 
+            FROM App\Entity\Product product
+            WHERE product.checkinAt > :datedujour and product.id not in
+            (
+                select p.id 
+                FROM App\Entity\OrderItem orderItem
+                INNER JOIN App\Entity\Product p where orderItem.product = p
+            )            
+            ORDER BY product.checkinAt"
+            );
+            $query->setParameter('datedujour',new \DateTime());
+            $query->setMaxResults(3);
+        
+        
+        
+            return $query->getResult();
+
+    }
+
 
     /*
     public function findOneBySomeField($value): ?Product

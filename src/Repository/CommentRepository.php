@@ -19,6 +19,22 @@ class CommentRepository extends ServiceEntityRepository
         parent::__construct($registry, Comment::class);
     }
 
+    public function findLast3Comments(){
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            "SELECT comment 
+            FROM App\Entity\Comment comment
+            ORDER BY comment.createdAt DESC");
+            
+            $query->setMaxResults(3);
+            
+        
+        
+            return $query->getResult();
+
+    }
+
     // /**
     //  * @return Comment[] Returns an array of Comment objects
     //  */

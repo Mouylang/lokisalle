@@ -18,6 +18,11 @@
         'attr':{'placeholder':'Entrez le nom de la salle au minimum 2 caractères'},
         'label': 'Nom de la salle' })
     }}
+    {{
+        form_row(formRoom.photo,{
+        'attr':{'placeholder':'choisissez un fichier'},
+        'label': 'Photo' })
+    }}
 
      {{form_widget(formRoom)}}
     {% if editMode %}

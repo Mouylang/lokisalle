@@ -55,9 +55,9 @@ class RoomController extends AbstractController
 
                 $originalFilename = pathinfo($photoFile->getClientOriginalName(), PATHINFO_FILENAME);
                 
-                //la foncion slug enleve les caractères spéciaux du ficher envoyer pour que cela puisse fonctionner dans une URL
+                //la fonction slug enleve les caractères spéciaux du ficher envoyer pour que cela puisse fonctionner dans une URL
                 $safeFilename = $slugger->slug($originalFilename);
-                //la fonctgion uniqid génère un id unique aléatoire 
+                //la fonction uniqid génère un id unique aléatoire 
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $photoFile->guessExtension();
 
                 // Move the file to the directory where brochures are stored
@@ -69,7 +69,7 @@ class RoomController extends AbstractController
                     );
                     
                 //on enregistre l'adresse du fichier en base
-                $room->setPhoto('/uploads/photos/' . $newFilename);
+                $room->setPhoto('/uploads/photos/'. $newFilename);
             }
 
             $manager->persist($room);

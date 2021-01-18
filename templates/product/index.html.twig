@@ -20,7 +20,7 @@
                 <a href="{{path('product_show',{'id': product.id})}}">{{product.room.title}}</a>
             </h3>
             <div class="card-body">
-            <img src="{{product.room.photo}}" class="img-fluid"/>
+                <img src="{{product.room.photo}}" class="img-fluid"/>
                 <h5 class="card-title pt-3 text-center">
                 {{product.room.address}} <br>
                 {{product.room.zipCode}} {{product.room.city}}
@@ -41,10 +41,8 @@
             </div>
         </div>
     {% endfor %}    
-  </div>
-<div class="row">
-    
 </div>
+
 
 
 {% endblock %}

@@ -33,7 +33,7 @@ class RoomType extends AbstractType
                             'image/png',
                             'image/jpeg',
                         ],
-                        'mimeTypesMessage' => 'Please upload a valid PDF document',
+                        'mimeTypesMessage' => 'Merci de télécharger une image en jpg , png ou gif',
                     ])
                 ],
             ])
