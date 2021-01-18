@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : sam. 16 jan. 2021 à 17:34
+-- Généré le : lun. 18 jan. 2021 à 19:23
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -59,7 +59,16 @@ CREATE TABLE IF NOT EXISTS `comment` (
   PRIMARY KEY (`id`),
   KEY `IDX_9474526C54177093` (`room_id`),
   KEY `IDX_9474526CF675F31B` (`author_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `comment`
+--
+
+INSERT INTO `comment` (`id`, `room_id`, `content`, `score`, `created_at`, `author_id`) VALUES
+(87, 79, 'Ravie de cette location, spacieuse et agréable! Je recommande!', 3, '2021-01-17 11:29:34', 5),
+(88, 79, 'C\'est toujours agréable de revenir à cet endroit!', 5, '2021-01-17 11:31:26', 5),
+(89, 79, 'top!!', 4, '2021-01-17 11:34:39', 5);
 
 -- --------------------------------------------------------
 
@@ -191,7 +200,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   PRIMARY KEY (`id`),
   KEY `IDX_D34A04AD54177093` (`room_id`),
   KEY `IDX_D34A04AD4C7C611F` (`discount_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `product`
@@ -217,7 +226,10 @@ INSERT INTO `product` (`id`, `room_id`, `discount_id`, `checkin_at`, `checkout_a
 (17, 79, 1, '2021-06-18 08:00:00', '2021-06-20 18:00:00', 1, 450),
 (18, 81, 5, '2021-07-04 08:00:00', '2021-01-06 18:00:00', 1, 390),
 (19, 82, 5, '2021-02-06 08:00:00', '2021-02-08 18:00:00', 1, 360),
-(20, 82, 1, '2021-04-12 08:00:00', '2021-04-14 18:00:00', 1, 450);
+(20, 82, 1, '2021-04-12 08:00:00', '2021-04-14 18:00:00', 1, 450),
+(21, 82, 1, '2021-06-11 08:00:00', '2021-06-13 18:00:00', 1, 360),
+(22, 83, 1, '2021-07-08 08:00:00', '2021-07-10 18:00:00', 1, 560),
+(23, 86, 5, '2021-02-03 08:00:00', '2021-02-05 18:00:00', 1, 640);
 
 -- --------------------------------------------------------
 
@@ -267,7 +279,7 @@ CREATE TABLE IF NOT EXISTS `room` (
 --
 
 INSERT INTO `room` (`id`, `country`, `city`, `address`, `zip_code`, `title`, `description`, `photo`, `capacity`, `category_id`) VALUES
-(79, 'France', 'Chretien-sur-Mer', '9, boulevard de Lopes', '11804', 'Salle Delphineland', 'Vous trouverez une salle pratique et fonctionnelle pour accueillir vos réunions ou petites formations.\r\n \r\n\r\nCette salle de formation, particulièrement adaptée pour une formation, une réunion, une AG, peut accueillir 4 à 8 personnes.\r\n\r\nProfitez de cette salle de réunion pleine de charme à la lumière du jour, pratique et bien située pour organiser vos évènements professionnels.\r\n\r\nLa salle peut être équipée avec un vidéoprojecteur, paperboard, du wifi. Nous pouvons proposer également des accueil petit déjeuner et des pauses café à disposition dans la salle.\r\nLokisalle vous propose des salles de formation équipées et modulables selon vos besoins pour former vos collaborateurs.', '/img/room/salle_athenes.png', 174, 15),
+(79, 'France', 'Chretien-sur-Mer', '9, boulevard de Lopes', '11804', 'Salle Delphineland', 'Vous trouverez une salle pratique et fonctionnelle pour accueillir vos réunions ou petites formations.\r\n \r\n\r\nCette salle de formation, particulièrement adaptée pour une formation, une réunion, une AG, peut accueillir 4 à 8 personnes.\r\n\r\nProfitez de cette salle de réunion pleine de charme à la lumière du jour, pratique et bien située pour organiser vos évènements professionnels.\r\n\r\nLa salle peut être équipée avec un vidéoprojecteur, paperboard, du wifi. Nous pouvons proposer également des accueil petit déjeuner et des pauses café à disposition dans la salle.\r\nLokisalle vous propose des salles de formation équipées et modulables selon vos besoins pour former vos collaborateurs.', '/uploads/photos/salle-geneve-600566267f051.png', 174, 15),
 (80, 'France', 'Massy', 'place du Grand Ouest', '91300', 'Salle Massy', 'Ce nouveau cinéma offre pour la première fois en France la toute dernière innovation développée par Dolby Laboratories, Inc. : la salle Dolby Cinema qui combine design et confort avec le système de projection laser Dolby Vision et le son Dolby Atmos.\r\nAvec ses 9 salles et 1 844 fauteuils, ce cinéma designé par Ora-ïto, a été conçu selon nos standards de qualité pour offrir la meilleure expérience aux spectateurs : fauteuils solos et duos, numérotation, services digitaux et espaces conviviaux avec prestations variées comme un stand Häagen-Dazs, un Starbucks on the go et une offre confiserie en libre-service.', '/img/room/salle_massy.jpg', 581, 15),
 (81, 'France', 'Salmon', '73, impasse Guerin', '62714', 'Salle Casablanca', 'Sed eligendi rem est qui. A et aspernatur omnis qui et reiciendis. Et sit rem ab omnis sit maiores. Ducimus eum quo tempore voluptatem. Nesciunt non facilis nisi mollitia. Placeat perferendis laudantium tempore et earum dolore et molestiae. Vitae quasi et blanditiis aut fugiat et. Dolore necessitatibus reiciendis omnis nihil fuga. Mollitia dolorum ducimus placeat alias. Hic magnam sed at amet temporibus a. Voluptatem inventore nihil illo repellendus nisi omnis et.', '/img/room/salle_casablanca.png', 259, 15),
 (82, 'France', 'Robin-les-Bains', '605, place Claudine Bouvet', '56429', 'Salle Dublin', 'Venez découvrir ce lieu d\'exception, situé en bordure de la capitale à Boulogne Billancourt et donc très facile d\'accès ! Il vous accueille dans un esprit professionnel et décontracté, pour une ambiance \"chic et jungle\"\r\n\r\nLe lieu est composé d\'un grand espace de réunion de 170m2 avec du mobilier modulable afin de répondre au mieux à vos besoins. Vous trouverez tables, chaises, canapés, fauteuils et tables basses ainsi qu\'une grande terrasse aménagée avec espace lounge pour se détendre.\r\n\r\nVous trouverez de l\'équipement à disposition : 2 vidéos projecteurs, 1 écran led, click and share, tableaux Véléda, smart marker, paper board, sonorisation, micros sans fils, Wifi très haut débit. Lieu éco responsale avec fontaine à eau Brita, zéro plastique et vaisselle bio dégradable !', '/img/room/salle_dublin.jpg', 15, 14),
@@ -306,11 +318,11 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `login`, `password`, `lastname`, `firstname`, `email`, `gender`, `city`, `zip_code`, `address`, `enabled`, `accept_newletter`, `reset_code`) VALUES
-(1, 'mei', 'loulouloulou', 'Michaux', 'Marc', 'mm@gmail.com', 'm', 'laval', '53000', 'rue du bas des bois', 1, 0, NULL),
-(2, 'nono', '$2y$13$62vfSGTKivTmSe8oZTCXbusfIt2PTj8JGswzzHfQDw2hbKvaiISpW', 'flechard', 'arnaud', 'mouylang.flechard@gmail.com', 'm', 'perpignan', '85000', 'rue de madrid', 1, 1, NULL),
-(3, 'meilan', 'totototo', 'Marie', 'Filou', 'mariefilou@gmail.com', 'f', 'bordeaux', '52545', 'rue des', 1, 0, NULL),
-(4, 'agathe', '$2y$13$Sneme3RbY6wL19jdbwMpkuBsDLsZwm.jx.tMQlH/cqvK3y7/iUQE2', 'Chauchis', 'agathe', 'agathechauchau@gmail.com', 'f', 'Lyon', '69000', 'rue les vachettes', 1, 0, NULL),
-(5, 'carine', '$2y$13$XAjXsAJ25XM9EnSd.4VStO9e2PhCyg8w1TQx/ddqtuetgJ88J/eTm', 'raimbeau', 'carine', 'carine@gmail.com', 'f', 'laval', '53000', 'rue des champions', 1, 0, NULL),
+(1, 'mei', 'loulouloulou', 'Michaux', 'Marc', 'user1@mlcreation.fr', 'm', 'laval', '53000', 'rue du bas des bois', 1, 0, NULL),
+(2, 'nono', '$2y$13$62vfSGTKivTmSe8oZTCXbusfIt2PTj8JGswzzHfQDw2hbKvaiISpW', 'flechard', 'arnaud', 'nono@kleverware.com', 'm', 'perpignan', '85000', 'rue de madrid', 1, 1, NULL),
+(3, 'meilan', 'totototo', 'Marie', 'Filou', 'user2@mlcreation.fr', 'f', 'bordeaux', '52545', 'rue des', 1, 0, NULL),
+(4, 'agathe', '$2y$13$Sneme3RbY6wL19jdbwMpkuBsDLsZwm.jx.tMQlH/cqvK3y7/iUQE2', 'Chauchis', 'agathe', 'user3@mlcreation.fr', 'f', 'Lyon', '69000', 'rue les vachettes', 1, 1, NULL),
+(5, 'carine', '$2y$13$XAjXsAJ25XM9EnSd.4VStO9e2PhCyg8w1TQx/ddqtuetgJ88J/eTm', 'raimbeau', 'carine', 'mouylang.flechard@gmail.com', 'f', 'laval', '53000', 'rue des champions', 1, 0, NULL),
 (6, 'arnaud', '$2y$13$kKEPtVNesrbm/Uy9SGbMpuNSz.hC9KflDY.UPGAq8aEB6qWeMRCuK', 'flechard', 'arnaud', 'arnaud.flechard@free.fr', 'm', 'paris', '75014', '15 rue des batignolles', 1, 1, '33f116e068c20af1e4d89e3a304f2880'),
 (7, 'arnaud1', '$2y$13$HAjUX.yujd16JRzlKSRp3eEMg0wXSOnuYPqrEY6SXMcMQaD0pCgvq', 'thefleche', 'Hacker', 'arnaud@flechard.fr', 'f', 'toto', '12345', 'rue des pâquerettes', 1, 1, NULL);
 
@@ -336,8 +348,12 @@ CREATE TABLE IF NOT EXISTS `user_role` (
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES
 (1, 3),
 (2, 3),
+(3, 3),
+(4, 3),
 (5, 2),
 (5, 3),
+(6, 2),
+(6, 3),
 (7, 3);
 
 --

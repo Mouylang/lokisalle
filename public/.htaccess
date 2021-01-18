@@ -1,0 +1,11 @@
+
+
+RewriteEngine On
+
+# Rediction sur le port HTTPS
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://lokisalle.mlcreation.fr/$1 [R,L]
+
+# On laisse la connexion vers les fichiers existants, sinon, c'es te fichier index.php qui traite la requête (pour traiter les route)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php [QSA,L]

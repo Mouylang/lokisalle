@@ -30,7 +30,7 @@ class SecurityController extends AbstractController
         if ($form->isSubmitted() &&  $form->isValid()){       
                 $hash = $encoder->encodePassword($user, $user->getPassword());  
                 $user->setPassword($hash);
-                $role_membre = $roleRepository->findOneBy(['role_name','ROLE_MEMBRE']);
+                $role_membre = $roleRepository->findOneBy(['roleName' => 'ROLE_MEMBER']);
                 $user->addRole($role_membre);
                 $user->setEnabled(true);
 
