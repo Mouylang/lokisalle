@@ -1,48 +1,88 @@
 {% extends 'base.html.twig' %}
 {% block meta %}
-  <meta name="description" content="Lokisalle - liste des salles disponibles" />
+	<meta name="description" content="Lokisalle - liste des salles disponibles"/>
 {% endblock %}
 
-{% block title %}Liste de toutes les salles disponibles{% endblock %}
+{% block title %}Liste de toutes les salles disponibles
+{% endblock %}
 
 {% block body %}
-<h1 class="text-center pb-5 text-info">Liste de toutes les disponibilités</h1>
+    <input type="checkbox" id="hideSoldOutProduct" name="hideSoldOutProduct"/>
+    <label for="hideSoldOutProduct">Masquer les dates déjà vendues</label>
+	<h1 class="text-center pb-5 text-info">Liste de toutes les disponibilités</h1>
 
-{% if is_granted("ROLE_ADMIN") %}
-<div class="text-center pb-5">
-    <a href="{{path('product_create')}}" class="btn btn-primary">Ajouter un produit</a>
-</div>
-{% endif %}
-<div class="row">
-    {% for product in products %}   
-        <div class="card mb-3 col-md-4 offset-md-1">
-            <h3 class="card-header">
-                <a href="{{path('product_show',{'id': product.id})}}">{{product.room.title}}</a>
-            </h3>
-            <div class="card-body">
-                <img src="{{product.room.photo}}" class="img-fluid"/>
-                <h5 class="card-title pt-3 text-center">
-                {{product.room.address}} <br>
-                {{product.room.zipCode}} {{product.room.city}}
-                </h5>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"><u>Catégorie </u>: {{product.room.category.name}}</li>
-                <li class="list-group-item"><u>Date d'arrivée </u>: du {{product.checkinAt|date('d/m/Y H:i')}}</li>
-                <li class="list-group-item"><u>Date de départ </u>: au {{product.checkoutAt|date('d/m/Y H:i')}}</li>
-                <li class="list-group-item"><u>Tarif </u>: {{product.price}} €</li>
-            </ul>
-            <div class="card-body text-center">
-                <a href="{{path('product_show',{'id': product.id})}}" class="btn btn-primary ">Afficher le détail</a>
+	{% if is_granted("ROLE_ADMIN") %}
+		<div class="text-center pb-5">
+			<a href="{{path('product_create')}}" class="btn btn-primary">Ajouter un produit</a>
+		</div>
+	{% endif %}
 
-                {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{path('product_edit',{'id': product.id})}}" class="btn btn-info">Modifier le produit</a>
-                {% endif %}
-            </div>
-        </div>
-    {% endfor %}    
-</div>
+	<div class="row">
+		{% for product in products %}
+			<div class="col-md-6 p-2 {% if product.isSoldOut %} js-is-sold-out {% endif %}">
+				<div class="card shadow">
+					<h3 class="card-header">
+						<a href="{{path('product_show',{'id': product.id})}}">{{product.room.title}}</a>
+					</h3>
+					<div class="card-body">
+						<div class="box">
+							{% if product.isSoldOut %}
+								<div class="ribbon ribbon-top-left">
+									<span>Déjà vendu !</span>
+								</div>
+							{% endif %}
+							<div class="text-center">
+								<img src="{{product.room.photo}}" class="img-fluid"/></div>
+						</div>
+						<h5 class="card-title pt-3 text-center">
+							{{product.room.address}}
+							<br>
+							{{product.room.zipCode}}
+							{{product.room.city}}
+						</h5>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<u>Catégorie
+							</u>:
+							{{product.room.category.name}}</li>
+						<li class="list-group-item">
+							<u>Date d'arrivée
+							</u>: du
+							{{product.checkinAt|date('d/m/Y H:i')}}</li>
+						<li class="list-group-item">
+							<u>Date de départ
+							</u>: au
+							{{product.checkoutAt|date('d/m/Y H:i')}}</li>
+						<li class="list-group-item">
+							<u>Tarif
+							</u>:
+							{{product.price}}
+							€</li>
+					</ul>
+					<div class="card-body text-center">
+						<a href="{{path('product_show',{'id': product.id})}}" class="btn btn-primary ">Afficher le détail</a>
 
+						{% if is_granted('ROLE_ADMIN') %}
+							<a href="{{path('product_edit',{'id': product.id})}}" class="btn btn-info">Modifier le produit</a>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
 
+{% endblock %}
 
+{% block javascripts %}
+<script>
+$('#hideSoldOutProduct').on('change', function(){
+     if(this.checked==true){
+         $('.js-is-sold-out').hide();
+     }else{
+         $('.js-is-sold-out').show();
+
+        }
+     });
+</script>
 {% endblock %}

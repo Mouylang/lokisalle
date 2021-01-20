@@ -73,7 +73,7 @@ class ProfileController extends AbstractController
                     ->from('lokisalle@flechard.fr')
                     ->to($user->getEmail())
                     ->subject('Réinitialisez votre code Lokisalle')
-                    ->html("<p>Bonjour " . $user->getFirstname() . "</p><a href=\"$URL_ROOT/profile/resetpassword/$codeunique\"> cliquez ici pour reinitialiser votre mot de passe</a>");
+                    ->html("<p>Bonjour " . $user->getFirstname() . "</p><a href=\"$URL_ROOT/resetpassword/$codeunique\"> cliquez ici pour reinitialiser votre mot de passe</a>");
 
                 $mailer->send($email);
 
@@ -93,7 +93,7 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/profile/resetpassword/{code_unique}", name="profile_resetpassword_newpassword")
+     * @Route("/resetpassword/{code_unique}", name="profile_resetpassword_newpassword")
      */
     public function newPassword(MailerInterface $mailer,$code_unique,UserRepository $userRepository,Request $request,UserPasswordEncoderInterface $encoder,EntityManagerInterface $manager)
     {

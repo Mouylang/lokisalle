@@ -36,6 +36,20 @@
 					<li class="nav-item">
 						<a class="nav-link" href="{{path('contact')}}">Nous contacter</a>
 					</li>
+					{% if is_granted('ROLE_ADMIN') %}
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="{{path('product')}}">Gestion des produits</a>
+								<a class="dropdown-item" href="{{path('room')}}">Gestion des salles</a>
+								<a class="dropdown-item" href="{{path('discount')}}">Gestion des codes Promo</a>
+								<a class="dropdown-item" href="#">Gestion des commandes</a>
+								<a class="dropdown-item" href="#">Voir la liste des Avis</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="{{path('user')}}">Gestion des membres</a>
+							</div>
+						</li>
+					{% endif %}
 					{% if not app.user %}
 						<li class="nav-item">
 							<a class="nav-link" href="{{path('security_registration')}}">S'inscrire</a>
@@ -45,32 +59,26 @@
 						</li>
 					{% else %}
 						<li class="nav-item">
-							<a class="nav-link" href="{{path('security_logout')}}">Se déconnecter</a>
-						</li>
-						<li class="nav-item">
 							<a class="nav-link" href="{{path('cart')}}" data-bs-toggle="tooltip" title="Voir mon panier!">
 								<span style="font-size:20px; color:#fff;">
-									<i class="fal fa-shopping-cart">
-								</i></span>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="{{path('profile')}}" data-bs-toggle="tooltip" title="Voir mon profil!">
-								<span style="font-size:20px; color:#fff;">
-									<i class="fal fa-user">
-								</i></span>
+									<i class="fal fa-shopping-cart"></i>
+								</span>
 							</a>
 						</li>
 					{% endif %}
-					{% if is_granted('ROLE_ADMIN') %}
+					
+					{% if is_granted('ROLE_MEMBER') %}
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
+							<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" data-bs-toggle="tooltip" title="Voir mon profil" aria-haspopup="true" aria-expanded="false"><span style="font-size:20px; color:#fff;">
+									<i class="fal fa-user"></i>
+								</span></a>
 							<div class="dropdown-menu">
-								<a class="dropdown-item" href="{{path('room')}}">Gestion des Salles</a>
-								<a class="dropdown-item" href="{{path('discount')}}">Gestion des codes Promo</a>
-								<a class="dropdown-item" href="{{path('product')}}">Gestion des produits</a>
+								<p class="text-center">{{app.user.firstname}}</p>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="{{path('user')}}">Gestion des membres</a>
+								<a class="dropdown-item" href="{{path('profile')}}">Mon profil</a>
+								<a class="dropdown-item" href="{{path('order')}}">Mes commandes</a>
+	
+								<a class="dropdown-item" href="{{path('security_logout')}}">Se déconnecter</a>
 							</div>
 						</li>
 					{% endif %}
@@ -78,14 +86,15 @@
 			</div>
 		</nav>
 		<div class="p-5">&nbsp;</div>
-		<div class="container pt-5 pb-5" id="blockbody"> 
-		{% block body %}{% endblock %}
-		</div>
+		<div class="container pt-5 pb-5" id="blockbody"> {% block body %}{% endblock %}
+			</div>
 			<div class="p-3">&nbsp;</div>
 			<footer class="container-fluid justify-content-center m-0 p-0 text-center">
 				<div class="row m-0" id="footer2">
 					<div class="col-lg-4">
-						<span style="font-size: 30px"><i class="fad fa-shield-check iconstyle-xl"></i></span>
+						<span style="font-size: 30px">
+							<i class="fad fa-shield-check iconstyle-xl"></i>
+						</span>
 						<h3 class="textstyle3">PAIEMENT SECURISE</h3>
 						<p>
 							<i class="fab fa-cc-visa"></i>Visa,
@@ -93,11 +102,15 @@
 						</p>
 					</div>
 					<div class="col-lg-4">
-						<span style="font-size: 30px"><i class="fad fa-handshake-alt iconstyle-xl"></i></span>
+						<span style="font-size: 30px">
+							<i class="fad fa-handshake-alt iconstyle-xl"></i>
+						</span>
 						<h3 class="textstyle3">SATISFAIT OU REMBOURSE</h3>
 					</div>
 					<div class="col-lg-4">
-						<span style="font-size: 30px"><i class="fad fa-user-headset iconstyle-xl"></i></span>
+						<span style="font-size: 30px">
+							<i class="fad fa-user-headset iconstyle-xl"></i>
+						</span>
 						<h3 class="textstyle3">SERVICE CLIENT</h3>
 						<p>Tel : 09 01 01 01 01 (numéro gratuit)</p>
 					</div>
@@ -110,12 +123,9 @@
 						<a class="nav-link text-white" href="{{path('home_cgv')}}">CGV</a>
 					</div>
 					<div class="col-xl-2 col-lg-2 col-4 m-auto">
-						<a class="nav-link text-white" href="#">Plan du site</a>
+						<a class="nav-link text-white" href="{{path('home_plansite')}}">Plan du site</a>
 					</div>
 					<div class="col-xl-2 col-lg-2 col-6 m-auto">
-						<a class="nav-link text-white" href="#">Votre avis nous intéresse</a>
-					</div>
-					<div class="col-xl-2 col-lg-2 col-6 m-auto">	
 						<div class="text-center">
 							<a class="nav-link text-white" href="#">Suivez-nous sur</a>
 							<a href="https://www.instagram.com/" target="_blank" class="text-white">
@@ -129,8 +139,10 @@
 				</div>
 				<div class="row m-0" id="footer4">
 					<div class="col-12">
-						<p class="text-center text-white">©Copyright 2020 Lokisalle- Location salle - Site factice - créé par ML Fléchard
-							<span class="printer"><i class="fas fa-print" onclick="javascript:window.print()"></i></span>
+						<p class="text-center text-white">©Copyright 2021 Lokisalle- Location salle - Site factice - créé par ML Fléchard
+							<span class="printer">
+								<i class="fas fa-print" onclick="javascript:window.print()"></i>
+							</span>
 						</p>
 					</div>
 				</div>

@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block meta %}
+  <meta name="description" content="Lokisalle - le plan du site" />
+{% endblock %}
+
+{% block title %}Plan du site{% endblock %}
+
+{% block body %}
+<h1>Plan du site</h1>
+<ul>
+    <li><a href="{{path('home')}}">Page d'accueil</a></li>
+    <li><a href="{{path('product')}}">Nos disponibilités</a></li>
+    <li><a href="{{path('room')}}">Nos salles</a></li>
+    <li><a href="{{path('search')}}">Recherche</a></li>
+    <li><a href="{{path('contact')}}">Nous contacter</a></li>
+    <li><a href="{{path('security_registration')}}">S'inscrire</a></li>
+    <li><a href="{{path('security_login')}}">Se connecter</a></li>
+    <li><a href="{{path('home_cgv')}}">CGV</a></li>
+    <li><a href="{{path('home_mentionslegales')}}">Mentions légales</a></li>
+    <li><a href="{{path('home_plansite')}}">Plan du site</a></li>
+</ul>
+
+{% endblock %}

@@ -3,10 +3,10 @@
   <meta name="description" content="Lokisalle - liste de mes commandes" />
 {% endblock %}
 
-{% block title %}Mes commande{% endblock %}
+{% block title %}Liste des commandes{% endblock %}
 
 {% block body %}
-<h1 class="text-info pb-3">Mes commande</h1>
+<h1 class="text-info pb-3">Liste des commandes</h1>
 
 <table class="table">
 			<thead class="thead-dark text-align-center">
@@ -25,7 +25,7 @@
 						<td>{{order.totalAmount}}€</td>
 						<td><a href="{{path('order_show',{'id': order.id})}}"/>Détails</a></td>
 					</tr>
-                {%  endfor %}    
+                {%  endfor %} 
 			</tbody>
 		</table>
 

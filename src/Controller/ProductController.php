@@ -41,7 +41,7 @@ class ProductController extends AbstractController
 
    
         if($form->isSubmitted() && $form->isValid()){
-            $product->setStatus(true);
+            $product->setisSoldOut(false);
             $manager->persist($product);
             $manager->flush();
             return $this->redirectToRoute('product_show',['id' => $product->getId()]);

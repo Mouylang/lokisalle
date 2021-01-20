@@ -37,7 +37,7 @@ class ProductRepository extends ServiceEntityRepository
     }
     */
 
-    public function fingByCategory($category,$price, $checkinAt,$checkoutAt,$capacity ){
+    public function findByCategory($category,$price, $checkinAt,$checkoutAt,$capacity ){
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
@@ -63,12 +63,7 @@ class ProductRepository extends ServiceEntityRepository
         $query = $entityManager->createQuery(
             "SELECT product 
             FROM App\Entity\Product product
-            WHERE product.checkinAt > :datedujour and product.id not in
-            (
-                select p.id 
-                FROM App\Entity\OrderItem orderItem
-                INNER JOIN App\Entity\Product p where orderItem.product = p
-            )            
+            WHERE product.checkinAt > :datedujour AND product.isSoldOut = false
             ORDER BY product.checkinAt"
             );
             $query->setParameter('datedujour',new \DateTime());

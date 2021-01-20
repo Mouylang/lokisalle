@@ -19,12 +19,48 @@
         'label': 'Nom de la salle' })
     }}
     {{
+        form_row(formRoom.address,{
+        'attr':{'placeholder':'Entrez l\'adresse'},
+        'label': 'Adresse' })
+    }}
+    {{
+        form_row(formRoom.zipCode,{
+        'attr':{'placeholder':'Entrez le code postal'},
+        'label': 'Code postal' })
+    }}
+    {{
+        form_row(formRoom.city,{
+        'attr':{'placeholder':'Entrez la ville'},
+        'label': 'Ville' })
+    }}
+    {{
+        form_row(formRoom.country,{
+        'attr':{'placeholder':'Entrez le pays'},
+        'label': 'Pays' })
+    }}
+    {{
         form_row(formRoom.photo,{
-        'attr':{'placeholder':'choisissez un fichier'},
+        'attr':{'placeholder':'Entrez une photo png, jpg,gif'},
+        'id':'photoFile',
         'label': 'Photo' })
     }}
 
-     {{form_widget(formRoom)}}
+    {{
+        form_row(formRoom.description,{
+        'attr':{'placeholder':'Entrez une description'},
+        'label': 'Description' })
+    }}
+    {{
+        form_row(formRoom.capacity,{
+        'attr':{'placeholder':'Entrez une capacité maximale'},
+        'label': 'Capacité' })
+    }}
+    {{
+        form_row(formRoom.category,{
+        'label': 'Catégorie' })
+    }}
+
+    
     {% if editMode %}
     <input type="submit" class="btn btn-primary" value="Modifier la salle">
     {% else %}
@@ -34,4 +70,8 @@
 
 
     {{form_end(formRoom)}}
+{% endblock %}
+
+{% block javascripts %}
+<script>$('#photoFile').on('change', function(){ files = $(this)[0].files; name = ''; for(var i = 0; i < files.length; i++){ name += '\"' + files[i].name + '\"' + (i != files.length-1 ? ", " : ""); } $(".custom-file-label").html(name); });</script>
 {% endblock %}

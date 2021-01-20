@@ -22,7 +22,7 @@ class OrderController extends AbstractController
     public function index(OrderRepository $orderRepository): Response
     {
         $user = $this->getUser();
-        $orders = $orderRepository->fingByUser($user);
+        $orders = $orderRepository->findByUser($user);
 
         return $this->render('order/index.html.twig', [
             'orders' => $orders
@@ -63,6 +63,7 @@ class OrderController extends AbstractController
             //on va récupérer l'objet produit qui a l'identifiant id
             $product = $productRepository->find($id);
             
+            
             foreach($codes as $code){
                 //si un des codes est valide le produit s'en souviendra grace à la variable usediscount qui sera à true
                 $product->sumbitDiscountCode($code);
@@ -76,6 +77,9 @@ class OrderController extends AbstractController
             // on met l'order item dans la commande
             $order->addOrderItem($orderItem);
            
+            $product->setisSoldOut(true);
+            $manager->persist($product);
+
             //on prépare sa mise en base de donné
             $manager->persist($orderItem);
             

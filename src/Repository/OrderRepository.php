@@ -20,7 +20,7 @@ class OrderRepository extends ServiceEntityRepository
         parent::__construct($registry, Order::class);
     }
 
-    public function fingByUser(User $user){
+    public function findByUser(User $user){
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(

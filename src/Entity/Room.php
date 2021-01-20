@@ -62,13 +62,6 @@ class Room
     private $description;
 
     /**
-     * @Assert\NotBlank
-     * @Assert\Length(
-     *      min = 1,
-     *      max = 200,
-     *      minMessage = "L'url a au moins {{ limit }} caractères",
-     *      maxMessage = "L'url a au maximum {{ limit }} caractères"
-     * )
      * @ORM\Column(type="string", length=200)
      */
     private $photo;

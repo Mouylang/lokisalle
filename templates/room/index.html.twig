@@ -36,10 +36,8 @@
 						{{room.city}}
 					</h5>
 				</div>
-				<div class="card-body">
-					<p class="card-text text-justify">
+				<div class="card-body text-justify" style="box-sizing: border-box; overflow:overlay; height:250px;">
 						{{room.description}}
-					</p>
 				</div>
 				<div class="card-body text-center pb-2">
 					<a href="{{path('room_show',{'id': room.id})}}" class="btn btn-primary">Afficher la salle</a>

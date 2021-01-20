@@ -14,11 +14,11 @@
 		au
 		{{product.checkoutAt|date('d/m/Y')}}</h1>
 	<div class="row">
-		<div class="card mb-3 col-md-6 m-auto">
+		<div class="">
 			<h3 class="card-header text-center">
 				<a href="{{path('product_show',{'id': product.id})}}">{{product.room.title}}</a>
 			</h3>
-			<div class="card-body">
+			<div class="card-body text-center">
 				<img src="{{product.room.photo}}" class="img-fluid"/>
 				<h5 class="card-title pt-3 text-center">
 					{{product.room.address}}
@@ -64,13 +64,15 @@
 				{{ include('comment/_show_list.html.twig',{comments:product.room.comments}) }}
 			</div>
 			<div class="card-body text-center">
+				
 				{% if product.orderItem %}
-					<p>déjà vendu ;-)
-					</p>
+					<p class="text-success" style="font-size:2rem;">Déjà vendu ;-)</p>
+				<a href="{{path('room_show',{'id': product.room.id})}}" class="btn btn-dark">Voir les autres dates disponibles à cette salle</a>
 				{% else %}
 					<a href="{{path('cart_add',{'id': product.id})}}" class="btn btn-primary">Ajouter au panier</a>
 				{% endif %}
 				<a href="{{path('product')}}" class="btn btn-secondary">Revenir aux produits</a>
+				<a href="{{path('room_show',{'id': product.room.id})}}" class="btn btn-primary">Donner votre avis sur la salle</a>
 			</div>
 		</div>
 	</div>

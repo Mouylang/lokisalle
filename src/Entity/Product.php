@@ -36,7 +36,7 @@ class Product
     /**
      * @ORM\Column(type="boolean")
      */
-    private $status;
+    private $isSoldOut;
 
     /**
      * @ORM\ManyToOne(targetEntity=Discount::class, inversedBy="products")
@@ -96,14 +96,14 @@ class Product
     }
     
 
-    public function getStatus(): ?bool
+    public function getisSoldOut(): ?bool
     {
-        return $this->status;
+        return $this->isSoldOut;
     }
 
-    public function setStatus(bool $status): self
+    public function setisSoldOut(bool $isSoldOut): self
     {
-        $this->status = $status;
+        $this->isSoldOut = $isSoldOut;
 
         return $this;
     }

@@ -1,27 +1,108 @@
-{% if comments|length == 0  %}
-	<p>Aucun avis pour cette salle</p>
+<div class="row">
+	{% for comment in comments %}
+		<div class="col-md-4 p-5">
+			<div class="card" id="commentcell">
+				<div class="card-header">
+					<p class="p-3 card-title">
+						Vos Avis
+						{{comment.score}}/5
+						{% if comment.score == 1 %}
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="far fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="far fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="far fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="far fa-star iconcolor"></i>
+							</span>
+						{% elseif comment.score == 2 %}
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="far fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="far fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="far fa-star iconcolor"></i>
+							</span>
+						{% elseif comment.score == 3 %}
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="far fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="far fa-star iconcolor"></i>
+							</span>
+						{% elseif comment.score == 4 %}
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="far fa-star iconcolor"></i>
+							</span>
 
-{% else %}
-	<p>Liste des avis</p>
-<table class="table">
-	<thead class="thead-dark text-align-center">
-		<tr>
-			<th>Auteur</th>
-			<th>note</th>
-			<th>commentaire</th>
-			<th>Date</th>
-		</tr>
-	</thead>
-	<tbody>
+						{% elseif comment.score == 5 %}
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+							<span style="color:#0f6379;">
+								<i class="fas fa-star iconcolor"></i>
+							</span>
+						{% else %}
+							<p>Pas de note</p>
+						{% endif %}
+					</p>
+				</div>
+				<div class="card-body">
+					<p>
+						<a href="{{path('room_show',{'id': comment.room.id})}}">{{comment.room.title}}</a>
+					</p>
 
-		{% for comment in comments %}
-			<tr>
-				<td>{{comment.author.firstname}}</td>
-				<td>{{comment.score}}</td>
-				<td>{{comment.content}}</td>
-				<td>{{comment.createdAt|date('d/m/Y H:i')}}</td>
-			</tr>
-		{% endfor %}
-	</tbody>
-</table>
-{% endif %}
+					<p class="font-italic">{{comment.content}}</p>
+					<p>{{comment.author.firstname}}</p>
+					<p class="text-muted">{{comment.createdAt|date('d/m/Y H:i')}}</p>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+
+</div>

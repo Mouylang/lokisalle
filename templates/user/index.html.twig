@@ -13,6 +13,7 @@
     <table class="table">
       <thead class="thead-dark">
         <tr>
+          <th>Login</th>
           <th>Nom</th>
           <th>Prénoms</th>
           <th>Email</th>
@@ -28,7 +29,8 @@
      </thead>
      <tbody>
     {% for user in users %}
-       <tr>   
+       <tr>
+          <td>{{user.login}}</td>   
           <td>{{user.lastname}}</td>
           <td>{{user.firstname}}</td>
           <td>{{user.email}}</td>

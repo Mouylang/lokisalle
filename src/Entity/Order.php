@@ -105,6 +105,7 @@ class Order
         return $this;
     }
 
+    
     public function removeOrderItem(OrderItem $orderItem): self
     {
         if ($this->orderItems->removeElement($orderItem)) {
