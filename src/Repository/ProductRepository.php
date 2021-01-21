@@ -37,25 +37,7 @@ class ProductRepository extends ServiceEntityRepository
     }
     */
 
-    public function findByCategory($category,$price, $checkinAt,$checkoutAt,$capacity ){
-        $entityManager = $this->getEntityManager();
-
-        $query = $entityManager->createQuery(
-            'SELECT product
-            FROM App\Entity\Product product
-            INNER JOIN product.room room
-            INNER JOIN room.category category
-            WHERE category.name = :catName and product.price < :price and :checkinat < product.checkinAt AND :checkoutat > product.checkoutAt  and :capacity < room.capacity '
-            )->setParameter('catName', $category)
-            ->setParameter('price',$price)
-            ->setParameter('checkinat', $checkinAt)
-            ->setParameter('checkoutat', $checkoutAt)
-            ->setParameter('capacity', $capacity);
-        
-        
-            return $query->getResult();
-
-    }
+    
 
     public function findNext3availableProducts(){
         $entityManager = $this->getEntityManager();
@@ -73,6 +55,41 @@ class ProductRepository extends ServiceEntityRepository
         
             return $query->getResult();
 
+    }
+
+    public function findByCriteria($category,$price,$city,$checkinAt,$checkoutAt,$capacity){
+        $queryBuilder = $this->createQueryBuilder('product');
+        $queryBuilder->innerJoin('product.room','room');
+        $queryBuilder->innerJoin('room.category','category');
+        $queryBuilder->andWhere('product.isSoldOut = false');
+
+        if($price){
+            $queryBuilder->andWhere('product.price <= :price')
+                ->setParameter('price',$price);
+        }
+        if($category){
+            $queryBuilder->andWhere('category.name = :catName')
+            ->setParameter('catName',$category);
+        }
+        if($capacity){
+            $queryBuilder->andWhere('room.capacity = :roomCapacity')
+            ->setParameter('roomCapacity',$capacity);
+        }
+        if($checkinAt){
+            $queryBuilder->andWhere('product.checkinAt >= :checkinAt')
+            ->setParameter('checkinAt',$checkinAt);
+        }
+        if($checkoutAt){
+            $queryBuilder->andWhere('product.checkoutAt >= :checkoutAt')
+            ->setParameter('checkoutAt',$checkoutAt);
+        }
+        if($city){
+            $queryBuilder->andWhere('room.city = :roomCity')
+            ->setParameter('roomCity',$city);
+        }
+
+
+        return $queryBuilder->getQuery()->getResult();
     }
 
 

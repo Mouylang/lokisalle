@@ -11,7 +11,7 @@
 
 {% block body %}
  <h1 class="text-info text-center">Bonjour {{user.firstname}}!</h1>
- 
+ <p><u>Votre login </u>: {{user.login}}</p>
 
 {{form_start(profileForm)}}
 
@@ -27,8 +27,27 @@
         form_row(profileForm.email,{
         'label': 'Adresse email' })
     }}
-
-    {{form_widget(profileForm)}}
+    {{
+        form_row(profileForm.gender,{
+        'label': 'Sexe' })
+    }}
+    {{
+        form_row(profileForm.address,{
+        'label': 'Adresse' })
+    }}
+    {{
+        form_row(profileForm.zipCode,{
+        'label': 'Code Postal' })
+    }}
+    {{
+        form_row(profileForm.city,{
+        'label': 'Ville' })
+    }}
+    {{
+        form_row(profileForm.acceptNewletter,{
+        'label': 'S\'inscrire à la newsletter' })
+    }}
+    
 
     <input type="submit" class="btn btn-primary" value="Sauvegarder mon profil">
 

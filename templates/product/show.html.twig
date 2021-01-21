@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block meta %}
-	<meta name="description" content="Lokisalle - détails du produit"/>
+	<meta name="description" content="Lokisalle - détails du produit- découvrez tous les détails de la salle {{product.room.title}} à  {{product.room.city}}.
+	D'une capacité de {{product.room.capacity}}, elle accueillera vos réunions et conférences. "/>
 {% endblock %}
 
 {% block title %}
@@ -8,13 +9,13 @@
 {% endblock %}
 
 {% block body %}
-	<h1 class="text-center text-info pb-3">{{product.room.title}}
+	<h1 class="text-center text-info pb-3">Lokisalle : {{product.room.title}}
 		du
 		{{product.checkinAt|date('d/m/Y')}}
 		au
 		{{product.checkoutAt|date('d/m/Y')}}</h1>
 	<div class="row">
-		<div class="">
+		<div class="col-12">
 			<h3 class="card-header text-center">
 				<a href="{{path('product_show',{'id': product.id})}}">{{product.room.title}}</a>
 			</h3>
@@ -26,6 +27,11 @@
 					{{product.room.zipCode}}
 					{{product.room.city}}
 				</h5>
+			</div>
+			<div class="card-body">
+				<p class="card-text text-center">
+					Nombre de personnes maximum:{{product.room.capacity}}
+				</p>
 			</div>
 			<div class="card-body">
 				<p class="card-text text-justify">

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block meta %}
-	<meta name="description" content="Lokisalle - liste des salles disponibles"/>
+	<meta name="description" content="Lokisalle - liste des salles disponibles à la réservation pour tous vos évènements ou réunions"/>
 {% endblock %}
 
 {% block title %}Liste de toutes les salles disponibles
@@ -46,6 +46,10 @@
 							<u>Catégorie
 							</u>:
 							{{product.room.category.name}}</li>
+						<li class="list-group-item">
+							<u>Nombre de personnes maximum 
+							</u>:
+							{{product.room.capacity}}</li>
 						<li class="list-group-item">
 							<u>Date d'arrivée
 							</u>: du

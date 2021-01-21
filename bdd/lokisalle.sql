@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 18 jan. 2021 à 19:23
+-- Généré le : mer. 20 jan. 2021 à 17:15
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
   PRIMARY KEY (`id`),
   KEY `IDX_9474526C54177093` (`room_id`),
   KEY `IDX_9474526CF675F31B` (`author_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `comment`
@@ -68,7 +68,9 @@ CREATE TABLE IF NOT EXISTS `comment` (
 INSERT INTO `comment` (`id`, `room_id`, `content`, `score`, `created_at`, `author_id`) VALUES
 (87, 79, 'Ravie de cette location, spacieuse et agréable! Je recommande!', 3, '2021-01-17 11:29:34', 5),
 (88, 79, 'C\'est toujours agréable de revenir à cet endroit!', 5, '2021-01-17 11:31:26', 5),
-(89, 79, 'top!!', 4, '2021-01-17 11:34:39', 5);
+(89, 79, 'top!!', 4, '2021-01-17 11:34:39', 5),
+(90, 84, 'Salle agréable et épurée, on a une vue magnifique!', 3, '2021-01-19 18:15:39', 5),
+(91, 81, 'Dans ce lieu atypique,  j\'ai adoré le cadre, vraiment idéal pour  vos conférences!!', 4, '2021-01-19 18:20:02', 5);
 
 -- --------------------------------------------------------
 
@@ -126,7 +128,8 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 ('DoctrineMigrations\\Version20210109111726', '2021-01-09 11:24:34', 192),
 ('DoctrineMigrations\\Version20210109141740', '2021-01-09 14:18:06', 719),
 ('DoctrineMigrations\\Version20210110085603', '2021-01-10 08:57:52', 373),
-('DoctrineMigrations\\Version20210113211812', '2021-01-13 21:19:02', 600);
+('DoctrineMigrations\\Version20210113211812', '2021-01-13 21:19:02', 600),
+('DoctrineMigrations\\Version20210120142209', '2021-01-20 14:22:52', 282);
 
 -- --------------------------------------------------------
 
@@ -195,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `discount_id` int(11) DEFAULT NULL,
   `checkin_at` datetime NOT NULL,
   `checkout_at` datetime NOT NULL,
-  `status` tinyint(1) NOT NULL,
+  `is_sold_out` tinyint(1) NOT NULL,
   `price` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_D34A04AD54177093` (`room_id`),
@@ -206,30 +209,30 @@ CREATE TABLE IF NOT EXISTS `product` (
 -- Déchargement des données de la table `product`
 --
 
-INSERT INTO `product` (`id`, `room_id`, `discount_id`, `checkin_at`, `checkout_at`, `status`, `price`) VALUES
+INSERT INTO `product` (`id`, `room_id`, `discount_id`, `checkin_at`, `checkout_at`, `is_sold_out`, `price`) VALUES
 (1, 85, 3, '2021-03-18 07:00:00', '2021-03-19 19:00:00', 1, 560),
 (2, 79, 3, '2021-03-13 09:00:00', '2021-03-14 18:00:00', 1, 280),
 (3, 82, 3, '2021-02-01 07:00:00', '2021-02-02 19:00:00', 1, 160),
 (4, 85, 1, '2021-05-07 09:00:00', '2021-05-09 18:00:00', 1, 450),
-(5, 79, 1, '2021-05-01 09:00:00', '2021-05-03 18:00:00', 1, 250),
-(6, 84, 3, '2021-03-12 09:00:00', '2021-03-15 18:00:00', 1, 300),
-(7, 84, 3, '2021-04-05 09:00:00', '2021-04-09 18:00:00', 1, 350),
-(8, 80, 1, '2021-02-13 09:00:00', '2021-02-15 18:00:00', 1, 1200),
-(9, 80, 1, '2021-03-17 08:00:00', '2021-03-19 18:00:00', 1, 1300),
-(10, 80, 6, '2021-04-05 08:00:00', '2021-04-08 18:00:00', 1, 1500),
-(11, 80, 1, '2021-06-19 08:00:00', '2021-06-20 18:00:00', 1, 1400),
+(5, 79, 1, '2021-05-01 09:00:00', '2021-05-03 18:00:00', 0, 250),
+(6, 84, 3, '2021-03-12 09:00:00', '2021-03-15 18:00:00', 0, 300),
+(7, 84, 3, '2021-04-05 09:00:00', '2021-04-09 18:00:00', 0, 350),
+(8, 80, 1, '2021-02-13 09:00:00', '2021-02-15 18:00:00', 0, 1200),
+(9, 80, 1, '2021-03-17 08:00:00', '2021-03-19 18:00:00', 0, 1300),
+(10, 80, 6, '2021-04-05 08:00:00', '2021-04-08 18:00:00', 0, 1500),
+(11, 80, 1, '2021-06-19 08:00:00', '2021-06-20 18:00:00', 0, 1400),
 (12, 80, 1, '2021-07-11 08:00:00', '2021-07-13 18:00:00', 1, 1600),
-(13, 83, 1, '2021-05-17 09:00:00', '2021-05-19 18:00:00', 1, 560),
-(14, 81, 5, '2021-02-08 08:00:00', '2021-02-10 18:00:00', 1, 350),
-(15, 81, 1, '2021-03-03 09:00:00', '2021-03-05 11:00:00', 1, 360),
-(16, 81, 5, '2021-04-15 08:00:00', '2021-04-17 18:00:00', 1, 380),
-(17, 79, 1, '2021-06-18 08:00:00', '2021-06-20 18:00:00', 1, 450),
+(13, 83, 1, '2021-05-17 09:00:00', '2021-05-19 18:00:00', 0, 560),
+(14, 81, 5, '2021-02-08 08:00:00', '2021-02-10 18:00:00', 0, 350),
+(15, 81, 1, '2021-03-03 09:00:00', '2021-03-05 11:00:00', 0, 360),
+(16, 81, 5, '2021-04-15 08:00:00', '2021-04-17 18:00:00', 0, 380),
+(17, 79, 1, '2021-06-18 08:00:00', '2021-06-20 18:00:00', 0, 450),
 (18, 81, 5, '2021-07-04 08:00:00', '2021-01-06 18:00:00', 1, 390),
-(19, 82, 5, '2021-02-06 08:00:00', '2021-02-08 18:00:00', 1, 360),
-(20, 82, 1, '2021-04-12 08:00:00', '2021-04-14 18:00:00', 1, 450),
-(21, 82, 1, '2021-06-11 08:00:00', '2021-06-13 18:00:00', 1, 360),
-(22, 83, 1, '2021-07-08 08:00:00', '2021-07-10 18:00:00', 1, 560),
-(23, 86, 5, '2021-02-03 08:00:00', '2021-02-05 18:00:00', 1, 640);
+(19, 82, 5, '2021-02-06 08:00:00', '2021-02-08 18:00:00', 0, 360),
+(20, 82, 1, '2021-04-12 08:00:00', '2021-04-14 18:00:00', 0, 450),
+(21, 82, 1, '2021-06-11 08:00:00', '2021-06-13 18:00:00', 0, 360),
+(22, 83, 1, '2021-07-08 08:00:00', '2021-07-10 18:00:00', 0, 560),
+(23, 86, 5, '2021-02-03 08:00:00', '2021-02-05 18:00:00', 0, 640);
 
 -- --------------------------------------------------------
 
@@ -272,7 +275,7 @@ CREATE TABLE IF NOT EXISTS `room` (
   `category_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_729F519B12469DE2` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `room`
@@ -281,13 +284,15 @@ CREATE TABLE IF NOT EXISTS `room` (
 INSERT INTO `room` (`id`, `country`, `city`, `address`, `zip_code`, `title`, `description`, `photo`, `capacity`, `category_id`) VALUES
 (79, 'France', 'Chretien-sur-Mer', '9, boulevard de Lopes', '11804', 'Salle Delphineland', 'Vous trouverez une salle pratique et fonctionnelle pour accueillir vos réunions ou petites formations.\r\n \r\n\r\nCette salle de formation, particulièrement adaptée pour une formation, une réunion, une AG, peut accueillir 4 à 8 personnes.\r\n\r\nProfitez de cette salle de réunion pleine de charme à la lumière du jour, pratique et bien située pour organiser vos évènements professionnels.\r\n\r\nLa salle peut être équipée avec un vidéoprojecteur, paperboard, du wifi. Nous pouvons proposer également des accueil petit déjeuner et des pauses café à disposition dans la salle.\r\nLokisalle vous propose des salles de formation équipées et modulables selon vos besoins pour former vos collaborateurs.', '/uploads/photos/salle-geneve-600566267f051.png', 174, 15),
 (80, 'France', 'Massy', 'place du Grand Ouest', '91300', 'Salle Massy', 'Ce nouveau cinéma offre pour la première fois en France la toute dernière innovation développée par Dolby Laboratories, Inc. : la salle Dolby Cinema qui combine design et confort avec le système de projection laser Dolby Vision et le son Dolby Atmos.\r\nAvec ses 9 salles et 1 844 fauteuils, ce cinéma designé par Ora-ïto, a été conçu selon nos standards de qualité pour offrir la meilleure expérience aux spectateurs : fauteuils solos et duos, numérotation, services digitaux et espaces conviviaux avec prestations variées comme un stand Häagen-Dazs, un Starbucks on the go et une offre confiserie en libre-service.', '/img/room/salle_massy.jpg', 581, 15),
-(81, 'France', 'Salmon', '73, impasse Guerin', '62714', 'Salle Casablanca', 'Sed eligendi rem est qui. A et aspernatur omnis qui et reiciendis. Et sit rem ab omnis sit maiores. Ducimus eum quo tempore voluptatem. Nesciunt non facilis nisi mollitia. Placeat perferendis laudantium tempore et earum dolore et molestiae. Vitae quasi et blanditiis aut fugiat et. Dolore necessitatibus reiciendis omnis nihil fuga. Mollitia dolorum ducimus placeat alias. Hic magnam sed at amet temporibus a. Voluptatem inventore nihil illo repellendus nisi omnis et.', '/img/room/salle_casablanca.png', 259, 15),
+(81, 'France', 'Salmon', '73, impasse Guerin', '62714', 'Salle Casablanca', 'La salle Casablanca est un endroit intimiste, décoré avec sobriété et raffinement. Situé dans le 7e arrondissement de Paris, à deux pas du centre d’affaires, du Triangle d’Or et de la gare Saint-Lazare, l’espace Bellechasse se distingue par son esthétisme prestigieux et son immeuble haussmannien. C’est dans ce lieu unique que se situe la salle cette salle. D’une superficie de 25 m2, elle se veut particulièrement intimiste. Elle pourra réunir jusqu’à 11 collaborateurs en configuration U ou en salle de réunion. Pour louer cette salle de location, vous pourrez vous adresser directement à notre équipe qui se fera un plaisir de répondre à votre demande. Vous pourrez également choisir d’utiliser cet endroit atypique comme une salle de sous-commission avec la location de l’auditorium de l’espace Bellechasse.', '/uploads/photos/salle-denver-60072272a856d.png', 259, 15),
 (82, 'France', 'Robin-les-Bains', '605, place Claudine Bouvet', '56429', 'Salle Dublin', 'Venez découvrir ce lieu d\'exception, situé en bordure de la capitale à Boulogne Billancourt et donc très facile d\'accès ! Il vous accueille dans un esprit professionnel et décontracté, pour une ambiance \"chic et jungle\"\r\n\r\nLe lieu est composé d\'un grand espace de réunion de 170m2 avec du mobilier modulable afin de répondre au mieux à vos besoins. Vous trouverez tables, chaises, canapés, fauteuils et tables basses ainsi qu\'une grande terrasse aménagée avec espace lounge pour se détendre.\r\n\r\nVous trouverez de l\'équipement à disposition : 2 vidéos projecteurs, 1 écran led, click and share, tableaux Véléda, smart marker, paper board, sonorisation, micros sans fils, Wifi très haut débit. Lieu éco responsale avec fontaine à eau Brita, zéro plastique et vaisselle bio dégradable !', '/img/room/salle_dublin.jpg', 15, 14),
 (83, 'France', 'Barthelemy', '30, place Lopez', '28072', 'Salle Lisbonne', 'Nous accueillons vos réunions de travail en mettant à votre disposition notre espace ouvert sur une terrasse et un jardin harmonieux. D\'une capacité d\'accueil de 12 personnes, cet espace de travail lumineux et climatisé de 29m2 est pourvu des derniers équipements technologiques: connexions informatiques, wi-fi, écran plat...\r\n\r\nEau et café seront à votre discrétion lors de votre séjour chez nous.Des ordinateurs portables, un fax et une photocopieuse sont aussi disponibles sur demande à l\'accueil. Avec une cuisine aménagée pour créer une atmosphère chaleureuse, notre salle de réunion vous promet des événements professionnels sereins et productifs.', '/img/room/salle_lisbonne.jpg', 12, 14),
-(84, 'France', 'Raymondboeuf', 'chemin Thierry Briand', '42175', 'Salle Port Amira', 'Découvrez un lieu de prestige pour l\'organisation d\'un séminaire d\'entreprise à Cassis, proche de Marseille (45minutes de l\'aéroport, 35min de la gare).\r\n\r\nLa privatisation inclut :\r\n- 3 pièces de réception vue mer\r\n- 9 chambres 1 dortoir\r\n- 8 salles de bain\r\n- 1 salon cinéma avec vidéo projecteur et grand écran\r\n- 1 orangerie avec ping pong et babyfoot et 1 boulodrome\r\n- 1 piscine chauffée de 13 mètres vue mer\r\n- 1 chef cuisinier\r\n\r\nLa situation de la maison est exceptionnelle, située sur un terrain privé de 60 hectares, dans le parc national des calanques. La maison dispose d\'une terrasse de 500 m² surplombant une plage aux eaux turquoises, accessible à pieds en quelques minutes.\r\n\r\nVous pouvez réserver ce bel endroit pour 2 nuits minimum ou pour un budget de 9000 euros minimum.\r\n\r\nActivités éventuelles en supplément : Sortie bateau / VTT électrique avec guides / randonnée guidée / cours de yoga / kayak dans les calanques / conférence sur le thème du bien-être...\r\n\r\nCe bel endroit est disponible à la réservation pour deux nuit minimum.', '/img/room/salle_londres.jpg', 15, 14),
+(84, 'France', 'Raymondboeuf', 'chemin Thierry Briand', '42175', 'Salle Port Amira', 'Découvrez un lieu de prestige pour l\'organisation d\'un séminaire d\'entreprise à Cassis, proche de Marseille (45minutes de l\'aéroport, 35min de la gare).\r\nLa privatisation inclut :\r\n- 3 pièces de réception vue mer\r\n- 9 chambres 1 dortoir\r\n- 8 salles de bain\r\n- 1 salon cinéma avec vidéo projecteur et grand écran\r\n- 1 orangerie avec ping pong et babyfoot et 1 boulodrome\r\n- 1 piscine chauffée de 13 mètres vue mer\r\n- 1 chef cuisinier\r\nLa situation de la maison est exceptionnelle, située sur un terrain privé de 60 hectares, dans le parc national des calanques. La maison dispose d\'une terrasse de 500 m² surplombant une plage aux eaux turquoises, accessible à pieds en quelques minutes.', '/uploads/photos/salle-paris-30pers-60072125b64e4.jpg', 15, 14),
 (85, 'France', 'Moulin-les-Bains', 'rue Lucy Bouvet', '57956', 'Salle Luxembourg', 'Parmi les lieux atypiques de Paris : Découvrez cet espace de travail de 30m² à la décoration cosy et décalée. Mobilier dépareillé, mur floral, nombreuses fenêtres pour une grande luminosité.\r\n\r\nHoraires d\'ouvertures : Lundi - Vendredi entre 8heures et 18heures. Minimum de réservation de 2heures.\r\n\r\nCapacités : 15 en U et salle de classe, 14 en réunion, 20 en théâtre et réception cocktail.', '/img/room/salle_luxembourg.jpg', 20, 14),
 (86, 'France', 'Pascal', '84, boulevard Colas', '49221', 'Salle Prague', 'A proximité de l’Hôtel de Ville, la location de cet amphithéâtre répondra à tous types de présentations ou formations. Profitez de ce vaste espace de travail pour organiser une conférence jusqu\'à 120 personnes.\r\n\r\nCette vaste salle de 120m² peut répondre à tous types de besoin, allant de la présentation à la conférence ou encore une formation ou un séminaire.\r\n\r\nLa salle est tout équipée:\r\n- prises électriques\r\n- tableau\r\n- vidéo-projecteur\r\n- climatisation', '/img/room/salle_prague.jpg', 450, 15),
-(87, 'France', 'Lyon', '60 rue des Martyres', '69005', 'Salle Turin', 'Cette salle de réunion de prestige située à Paris près des Grands Boulevards n\'attend que vous ! Dans cette pièce aux moulures typiquement parisiennes, située en plein cœur du 8ème arrondissement, vous pourrez retrouver la quiétude d\'un chez-soi, sa superficie et sa lumière offrant un espace aéré et confortable.\r\n\r\nIdéal pour une session de brainstorming suivie d\'une pause détente dans l\'espace lounge, cet espace vous plongera dans une ambiance \"comme à la maison\". Nous pourrons par ailleurs vous proposer de quoi vous restaurer selon vos besoins.\r\n\r\nNotre établissement est ouvert 7 jours sur 7 de 7heures du matin à 23heures.', '/img/room/salle_turin.png', 30, 14);
+(87, 'France', 'Lyon', '60 rue des Martyres', '69005', 'Salle Turin', 'Cette salle de réunion de prestige située à Paris près des Grands Boulevards n\'attend que vous ! Dans cette pièce aux moulures typiquement parisiennes, située en plein cœur du 8ème arrondissement, vous pourrez retrouver la quiétude d\'un chez-soi, sa superficie et sa lumière offrant un espace aéré et confortable.\r\n\r\nIdéal pour une session de brainstorming suivie d\'une pause détente dans l\'espace lounge, cet espace vous plongera dans une ambiance \"comme à la maison\". Nous pourrons par ailleurs vous proposer de quoi vous restaurer selon vos besoins.\r\n\r\nNotre établissement est ouvert 7 jours sur 7 de 7heures du matin à 23heures.', '/img/room/salle_turin.png', 30, 14),
+(88, 'France', 'Lyon', '56 rue des jonquilles', '69000', 'Salle Cannes', 'La salle Cannes est une vaste salle totalement aménageable selon vos besoins. Vous pouvez ainsi demander à ce que soient installés des matériels techniques de grande qualité, particulièrement utiles pour exposer vos idées et afficher vos présentations. Un vidéo projecteur, un paper board pour vos brainstormings, un système de sonorisation ou encore le réseau Internet Wifi en haut débit sont autant d’outils techniques qui pourront être installés dans cette salle aménageable à volonté.', '/uploads/photos/salle-cannes-600739c55138f.jpg', 30, 14),
+(89, 'France', 'Marseilles', '71 rue des paupiettes', '13000', 'Salle Rio', 'Dans le cadre de l’organisation de vos futures réunions professionnelles, la salle Montgolfier sera parfaite pour réunir tous vos invités autour d’une grande table moderne et dans un décor prestigieux. En outre, ce lieu unique est situé à proximité directe des transports en commun et est très facile d’accès depuis la station de gare de Viroflay Rive Droite.', '/uploads/photos/salle-rio-60073fd2be039.jpg', 25, 14);
 
 -- --------------------------------------------------------
 
@@ -311,7 +316,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `accept_newletter` tinyint(1) NOT NULL,
   `reset_code` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `user`
@@ -324,7 +329,8 @@ INSERT INTO `user` (`id`, `login`, `password`, `lastname`, `firstname`, `email`,
 (4, 'agathe', '$2y$13$Sneme3RbY6wL19jdbwMpkuBsDLsZwm.jx.tMQlH/cqvK3y7/iUQE2', 'Chauchis', 'agathe', 'user3@mlcreation.fr', 'f', 'Lyon', '69000', 'rue les vachettes', 1, 1, NULL),
 (5, 'carine', '$2y$13$XAjXsAJ25XM9EnSd.4VStO9e2PhCyg8w1TQx/ddqtuetgJ88J/eTm', 'raimbeau', 'carine', 'mouylang.flechard@gmail.com', 'f', 'laval', '53000', 'rue des champions', 1, 0, NULL),
 (6, 'arnaud', '$2y$13$kKEPtVNesrbm/Uy9SGbMpuNSz.hC9KflDY.UPGAq8aEB6qWeMRCuK', 'flechard', 'arnaud', 'arnaud.flechard@free.fr', 'm', 'paris', '75014', '15 rue des batignolles', 1, 1, '33f116e068c20af1e4d89e3a304f2880'),
-(7, 'arnaud1', '$2y$13$HAjUX.yujd16JRzlKSRp3eEMg0wXSOnuYPqrEY6SXMcMQaD0pCgvq', 'thefleche', 'Hacker', 'arnaud@flechard.fr', 'f', 'toto', '12345', 'rue des pâquerettes', 1, 1, NULL);
+(7, 'arnaud1', '$2y$13$HAjUX.yujd16JRzlKSRp3eEMg0wXSOnuYPqrEY6SXMcMQaD0pCgvq', 'thefleche', 'Hacker', 'arnaud@flechard.fr', 'f', 'toto', '12345', 'rue des pâquerettes', 1, 1, NULL),
+(8, 'alain', '$2y$13$IhXaSXtksen1bx8d9ktmOubxEhrn/U8pAiH5cXc2j7kHc/l/c6yxC', 'souchon', 'alain', 'user6@mlcreation.fr', 'm', 'Paris', '75011', '58 rue des pruniers', 1, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -354,7 +360,8 @@ INSERT INTO `user_role` (`user_id`, `role_id`) VALUES
 (5, 3),
 (6, 2),
 (6, 3),
-(7, 3);
+(7, 3),
+(8, 3);
 
 --
 -- Contraintes pour les tables déchargées

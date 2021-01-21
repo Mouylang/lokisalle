@@ -2,7 +2,20 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0"> {% block meta %}{% endblock %}
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		{% block meta %}
+		{% endblock %}
+		<link rel="shortcut icon" type="image/png" href="/img/logo_lokisalle.png"/>
+		<script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-LJN4TMCR77");
+    </script>
+
 		<title>
 			{% block title %}Welcome!
 			{% endblock %}
@@ -17,7 +30,7 @@
 	</head>
 	<body>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-			<a class="navbar-brand" href="{{path('home')}}">Lokisalle</a>
+			<a class="navbar-brand" href="{{path('home')}}"><img src="{{asset('/img/logo_lokisalle.png')}}" alt="logo Lokisalle" height="50px">Lokisalle</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -66,18 +79,20 @@
 							</a>
 						</li>
 					{% endif %}
-					
+
 					{% if is_granted('ROLE_MEMBER') %}
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" data-bs-toggle="tooltip" title="Voir mon profil" aria-haspopup="true" aria-expanded="false"><span style="font-size:20px; color:#fff;">
+							<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" data-bs-toggle="tooltip" title="Voir mon profil" aria-haspopup="true" aria-expanded="false">
+								<span style="font-size:20px; color:#fff;">
 									<i class="fal fa-user"></i>
-								</span></a>
+								</span>
+							</a>
 							<div class="dropdown-menu">
 								<p class="text-center">{{app.user.firstname}}</p>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="{{path('profile')}}">Mon profil</a>
 								<a class="dropdown-item" href="{{path('order')}}">Mes commandes</a>
-	
+
 								<a class="dropdown-item" href="{{path('security_logout')}}">Se déconnecter</a>
 							</div>
 						</li>

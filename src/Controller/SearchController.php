@@ -19,13 +19,18 @@ class SearchController extends AbstractController
         $isPost=false;
         
         if($request->isMethod('POST')){
+            
             $category = $request->get('category');
-            $checkinAt = $request->get('checkin_at');
-            $checkoutAt = $request->get('checkout_at');
+            $city = $request->get('city');
             $capacity = $request->get('capacity');
-            $price = $request->get('prix');
-            $products = $productRepository->findByCategory($category,$price,$checkinAt,$checkoutAt,$capacity);
-            $isPost = true;
+            $checkinAt = $request->get('checkinAt');
+            $checkoutAt = $request->get('checkoutAt');
+            $price = $request->get('price');
+
+            
+
+                $products = $productRepository->findByCriteria($category,$price,$city,$checkinAt,$checkoutAt,$capacity);
+                $isPost = true;
 
         }
         

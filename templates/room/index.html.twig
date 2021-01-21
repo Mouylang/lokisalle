@@ -23,7 +23,8 @@
 
 	<div class="row">
 		{% for room in rooms %}
-			<div class="card mb-3 col-md-4 offset-md-1">
+		<div class="col-md-6 p-2">
+			<div class="card shadow">
 				<h3 class="card-header text-center text-success">
 					{{room.title}}
 				</h3>
@@ -51,6 +52,7 @@
 					</div>
 				{% endif %}
 			</div>
+		</div>
 		{% endfor %}
 	</div>
 
