@@ -13,53 +13,55 @@
 			<br>
 			<img src="{{ asset('img/lokisalle_emptyCart.png') }}" class="img-fluid"></p>
 		<p class="text-center">
-			<a href="{{path('product')}}" class="btn btn-primary">Retour à aux produits</a>
+			<a href="{{path('product')}}" class="btn btn-primary">Retour aux disponibilités</a>
 		</p>
 	{% else %}
-		<table class="table">
-			<thead class="thead-dark text-align-center">
-				<tr>
-					<td>Nom de la salle</td>
-					<td>Date d'arrivée</td>
-					<td>Date de départ</td>
-					<td>Prix</td>
-					<td>Code réduction</td>
-					<td>Montant</td>
-					<td>Action</td>
-				</tr>
-			</thead>
-			<tbody>
-				{% for product in products %}
+		<div class="table-responsive">
+			<table class="table">
+				<thead class="thead-dark text-align-center">
 					<tr>
-						<td>
-							<a href="{{path('product_show',{'id': product.id})}}">{{product.room.title}}</a>
-						</td>
-						<td>{{product.checkinAt|date('d/m/Y')}}</td>
-						<td>{{product.checkoutAt|date('d/m/Y')}}</td>
-						<td>{{product.price}}
-							€</td>
-						<td>{{product.usedDiscountCode}}
-						</td>
-						<td>
-							{{product.finalPrice}}
-							€</td>
-						<td>
-							<a href="{{path('cart_remove',{'id': product.id})}}">
-								<span class="text-danger">
-									<i class="fas fa-trash-alt"></i>
-								</span>
-							</a>
-						</td>
+						<td>Nom de la salle</td>
+						<td>Date d'arrivée</td>
+						<td>Date de départ</td>
+						<td>Prix</td>
+						<td>Code réduction</td>
+						<td>Montant</td>
+						<td>Action</td>
 					</tr>
-				{% endfor %}
-				<tr>
-					<td>Montant total</td>
-					<td class="text-right"colspan="2">{{totalAmount}}
-						€</td>
-					<td colspan="4"></td>
-				</tr>
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					{% for product in products %}
+						<tr>
+							<td>
+								<a href="{{path('product_show',{'id': product.id})}}">{{product.room.title}}</a>
+							</td>
+							<td>{{product.checkinAt|date('d/m/Y')}}</td>
+							<td>{{product.checkoutAt|date('d/m/Y')}}</td>
+							<td>{{product.price}}
+								€</td>
+							<td>{{product.usedDiscountCode}}
+							</td>
+							<td>
+								{{product.finalPrice}}
+								€</td>
+							<td>
+								<a href="{{path('cart_remove',{'id': product.id})}}">
+									<span class="text-danger">
+										<i class="fas fa-trash-alt"></i>
+									</span>
+								</a>
+							</td>
+						</tr>
+					{% endfor %}
+					<tr>
+						<td>Montant total</td>
+						<td class="text-right" colspan="2">{{totalAmount}}
+							€</td>
+						<td colspan="4"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 		<div class="pb-3">
 			<form method="post" action="{{path('cart')}}">
 				{% if not validCode %}

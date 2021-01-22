@@ -56,19 +56,33 @@
 						€</td>
 					<td class="text-center">
 						<a href="{{path('cart_add',{'id': product.id})}}" class="btn btn-primary btn-sm">Ajouter au panier</a>
+						{% if is_granted('ROLE_ADMIN') %}
+						<a href="{{path('product_edit',{'id': product.id})}}" class="btn btn-secondary btn-sm">Modifier</a>
+						<a href="{{path('product_delete',{'id': product.id})}}" class="btn btn-danger btn-sm">Supprimer</a>
+						{% endif %}
 					</td>
 				</tr>
 				{% endif %}
 			{% endfor %}
 		</tbody>
 	</table>
-	<div class="text-center">
+	<div class="text-center pb-3">
 		<a href="{{path('room')}}" class="btn btn-secondary">Revenir à la liste des salles</a>
 	</div>
+	{% if is_granted("ROLE_ADMIN") %}
+		<div class="text-center pb-5">
+			<a href="{{path('product_create')}}" class="btn btn-primary">Ajouter un autre produit</a>
+		</div>
+	{% endif %}	
+	{% if room.comments|length > 0 %}
 	<div class="p-3">
 	<h2 class="text-center p-3">Liste des avis pour cette Lokisalle</h2>
 		{{ include('comment/_show_list.html.twig',{comments:room.comments}) }}
 	</div>
+	{% elseif is_granted('ROLE_MEMBER') %}
+	<h2 class="text-center p-3">Soyez le premier ou la première à donner votre avis!</h2>
+	{% endif %}
+
 	{% if is_granted('ROLE_MEMBER')%}
 		{{form_start(commentForm)}}
 		{{

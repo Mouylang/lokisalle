@@ -4,11 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Cart;
 use App\Entity\Order;
-use App\Entity\OrderItem;
 use App\Entity\Product;
+use App\Entity\OrderItem;
+use Symfony\Component\Mime\Email;
+use App\Repository\UserRepository;
 use App\Repository\OrderRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -32,7 +36,7 @@ class OrderController extends AbstractController
     /**
      * @Route("/order/placeorder", name="place_order")
      */
-    public function placeOrder(SessionInterface $session, ProductRepository $productRepository, EntityManagerInterface $manager ){
+    public function placeOrder(SessionInterface $session, ProductRepository $productRepository, EntityManagerInterface $manager, MailerInterface $mailer,Request $request ){
         //on récupère le panier dans la session
         $cart = $session->get('cart', new Cart());
         //on récupère les ids de chaque produit de mon panier 
@@ -90,6 +94,10 @@ class OrderController extends AbstractController
         $manager->persist($order);
         
         $manager->flush();
+
+        
+        $this->sendConfirmationEmail($order, $mailer,$request);
+
         $session->remove('cart');
         return $this->redirectToRoute('order_show',[
             'id' => $order->getId()
@@ -101,10 +109,29 @@ class OrderController extends AbstractController
      */
     public function show(Order $order): Response
     {
+        
         return $this->render('order/show.html.twig', [
             'order' => $order
         ]);
     }
 
+
+    private function sendConfirmationEmail($order,MailerInterface $mailer,Request $request){
+        $user= $this->getUser();
+        $emailPathEmailOrder = $this->getParameter('kernel.project_dir') . '/emailTemplates/cfmOrder.html';
+        $URL_ROOT=$request->getSchemeAndHttpHost();
+        $emailContent = file_get_contents($emailPathEmailOrder);
+        $emailContent = str_replace("{{prenom}}",$user->getFirstname(),$emailContent);
+        $emailContent = str_replace("{{linkToOrder}}",$URL_ROOT."/order/". $order->getId(),$emailContent);
+        
+
+            $email = (new Email())
+                ->from('lokisalle@flechard.fr')
+                ->replyTo($user->getEmail())                          
+                ->subject('Votre commande Lokisalle')
+                ->html($emailContent);            
+                $email->addTo($user->getEmail());
+            $mailer->send($email);
+    }
 
 }

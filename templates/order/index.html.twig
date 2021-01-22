@@ -1,33 +1,32 @@
 {% extends 'base.html.twig' %}
 {% block meta %}
-  <meta name="description" content="Lokisalle - liste de mes commandes" />
+	<meta name="description" content="Lokisalle - liste de mes commandes"/>
 {% endblock %}
 
-{% block title %}Liste des commandes{% endblock %}
+{% block title %}Liste des commandes
+{% endblock %}
 
 {% block body %}
 <h1 class="text-info pb-3">Liste des commandes</h1>
-
-<table class="table">
-			<thead class="thead-dark text-align-center">
-                    <tr>
-                        <th>No de la commande</th>
-                        <th>Date de commande</th>
-                        <th>Montant</th>
-                        <th>détail de commande</th>
-                    </tr>
-			</thead>
-			<tbody>
-				{% for order in orders %}
-					<tr>
-						<td>{{order.id}}</td>
-						<td>{{order.createdAt|date('d/m/Y H:i')}}</td>
-						<td>{{order.totalAmount}}€</td>
-						<td><a href="{{path('order_show',{'id': order.id})}}"/>Détails</a></td>
-					</tr>
-                {%  endfor %} 
-			</tbody>
-		</table>
-
-
-{% endblock %}
+<div class="table-responsive">
+	<table class="table">
+		<thead class="thead-dark text-align-center">
+			<tr>
+				<th>No de la commande</th>
+				<th>Date de commande</th>
+				<th>Montant</th>
+				<th>détail de commande</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for order in orders %}
+				<tr>
+					<td>{{order.id}}</td>
+					<td>{{order.createdAt|date('d/m/Y H:i')}}</td>
+					<td>{{order.totalAmount}}€</td>
+					<td><a href="{{path('order_show',{'id': order.id})}}"/>Détails</td>
+				</tr>
+			</a>
+		</tbody>
+	</td>
+</tr>{%  endfor %}</tbody></table></div>{% endblock %}

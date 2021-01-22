@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}La liste des commandes
+{% endblock %}
+
+{% block body %}
+	<h1 class="text-center text-success pb-2">Liste des commandes en cours</h1>
+	<div class="table-responsive">
+		<table class="table">
+			<thead class="thead-dark text-align-center">
+				<tr>
+					<th>Id_commande</th>
+					<th>Id_membre</th>
+					<th>Date de commande</th>
+					<th>Montant</th>
+					<th>détail de commande</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for order in orders %}
+					<tr>
+						<td>{{order.id}}</td>
+						<td>{{order.user.id}}</td>
+						<td>{{order.createdAt|date('d/m/Y')}}</td>
+						<td>{{order.totalAmount}}€</td>
+						<td>
+							<a href="{{path('statistic_show',{'id': order.id})}}">Détails</a>
+						</td>
+					</tr>
+				{% endfor %}
+				<tr>
+					<td colspan="2">
+						<u>
+							<b>Montant du chiffre d'affaire total :</b>
+						</u>
+					</td>
+					<td colspan="2">
+						<b>{{sumTotalAmount}}
+							€ TTC</b>
+					</td>
+					<td colspan="2"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>	
+	{% endblock %}

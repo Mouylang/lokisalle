@@ -37,7 +37,19 @@ class ProductRepository extends ServiceEntityRepository
     }
     */
 
-    
+    public function findAllAsc(){
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            "SELECT product 
+            FROM App\Entity\Product product
+            WHERE product.checkinAt > :datedujour
+            ORDER BY product.checkinAt"
+            );
+            $query->setParameter('datedujour',new \DateTime());
+        
+            return $query->getResult();
+    }
 
     public function findNext3availableProducts(){
         $entityManager = $this->getEntityManager();
@@ -57,7 +69,7 @@ class ProductRepository extends ServiceEntityRepository
 
     }
 
-    public function findByCriteria($category,$price,$city,$checkinAt,$checkoutAt,$capacity){
+    public function findByCriteria($category,$price,$city,$checkinAtAfter,$checkoutAtBefore,$capacity){
         $queryBuilder = $this->createQueryBuilder('product');
         $queryBuilder->innerJoin('product.room','room');
         $queryBuilder->innerJoin('room.category','category');
@@ -72,16 +84,16 @@ class ProductRepository extends ServiceEntityRepository
             ->setParameter('catName',$category);
         }
         if($capacity){
-            $queryBuilder->andWhere('room.capacity = :roomCapacity')
+            $queryBuilder->andWhere('room.capacity >= :roomCapacity')
             ->setParameter('roomCapacity',$capacity);
         }
-        if($checkinAt){
-            $queryBuilder->andWhere('product.checkinAt >= :checkinAt')
-            ->setParameter('checkinAt',$checkinAt);
+        if($checkinAtAfter){
+            $queryBuilder->andWhere('product.checkinAt >= :checkinAtAfter')
+            ->setParameter('checkinAtAfter',$checkinAtAfter);
         }
-        if($checkoutAt){
-            $queryBuilder->andWhere('product.checkoutAt >= :checkoutAt')
-            ->setParameter('checkoutAt',$checkoutAt);
+        if($checkoutAtBefore){
+            $queryBuilder->andWhere('product.checkoutAt <= :checkoutAtBefore')
+            ->setParameter('checkoutAtBefore',$checkoutAtBefore);
         }
         if($city){
             $queryBuilder->andWhere('room.city = :roomCity')

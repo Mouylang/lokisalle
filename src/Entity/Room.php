@@ -86,6 +86,7 @@ class Room
 
     /**
      * @ORM\OneToMany(targetEntity=Product::class, mappedBy="room")
+     * @ORM\OrderBy({"checkinAt" = "ASC"})
      */
     private $products;
 

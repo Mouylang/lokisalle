@@ -48,5 +48,6 @@ security:
          - { path: ^/room/new, roles: ROLE_ADMIN }
          - { path: ^/product/\d+/edit, roles: ROLE_ADMIN }
          - { path: ^/product/new, roles: ROLE_ADMIN }
-         
+         - { path: ^/comment, roles: ROLE_ADMIN }
+         - { path: ^/statistic, roles: ROLE_ADMIN }
 

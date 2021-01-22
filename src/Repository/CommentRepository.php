@@ -35,6 +35,20 @@ class CommentRepository extends ServiceEntityRepository
 
     }
 
+    // public function findAllAsc(){
+    //     $entityManager = $this->getEntityManager();
+
+    //     $query = $entityManager->createQuery(
+    //         "SELECT comment 
+    //         FROM App\Entity\Comment comment
+    //         WHERE comment.createdAt < :datedujour
+    //         ORDER BY comment.createdAt"
+    //         );
+    //         $query->setParameter('datedujour',new \DateTime());
+        
+    //         return $query->getResult();
+    // }
+
     // /**
     //  * @return Comment[] Returns an array of Comment objects
     //  */

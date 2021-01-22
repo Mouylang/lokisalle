@@ -3,13 +3,13 @@
 	<meta name="description" content="Lokisalle - liste des salles disponibles à la réservation pour tous vos évènements ou réunions"/>
 {% endblock %}
 
-{% block title %}Liste de toutes les salles disponibles
+{% block title %}Lokisalle - Liste de toutes les salles disponibles
 {% endblock %}
 
 {% block body %}
     <input type="checkbox" id="hideSoldOutProduct" name="hideSoldOutProduct"/>
-    <label for="hideSoldOutProduct">Masquer les dates déjà vendues</label>
-	<h1 class="text-center pb-5 text-info">Liste de toutes les disponibilités</h1>
+    <label for="hideSoldOutProduct">Masquer les dates déjà louées</label>
+	<h1 class="text-center pt-2 pb-5 text-info">Liste des dates Lokisalle ouvertes à la réservation</h1>
 
 	{% if is_granted("ROLE_ADMIN") %}
 		<div class="text-center pb-5">
@@ -28,7 +28,7 @@
 						<div class="box">
 							{% if product.isSoldOut %}
 								<div class="ribbon ribbon-top-left">
-									<span>Déjà vendu !</span>
+									<span>Déjà réservée</span>
 								</div>
 							{% endif %}
 							<div class="text-center">
