@@ -49,7 +49,7 @@ class RoomController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $photoFile = $form->get('photo')->getData();
+            $photoFile = $form->get('photoFile')->getData();
 
             if ($photoFile) {
 
@@ -71,10 +71,12 @@ class RoomController extends AbstractController
                 //on enregistre l'adresse du fichier en base
                 $room->setPhoto('/uploads/photos/'. $newFilename);
             }
+           
 
             $manager->persist($room);
             $manager->flush();
-            return $this->redirectToRoute('room_show', ['id' => $room->getId()]);
+            return $this->redirectToRoute('room_show', ['id' => $room->getId()
+            ]);
         }
         return $this->render('room/create.html.twig', [
             'formRoom' =>  $form->createView(),

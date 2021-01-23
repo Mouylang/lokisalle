@@ -22,7 +22,7 @@ class RoomType extends AbstractType
             ->add('zipCode')
             ->add('title')
             ->add('description')
-            ->add('photo', FileType::class, [
+            ->add('photoFile', FileType::class, [
                 'label' => 'Photo (fichier)',
                 'mapped' => false,
                 'constraints' => [

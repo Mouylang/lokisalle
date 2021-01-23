@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}gestion des newsletters{% endblock %}
+
+{% block body %}
+
+
+<div>
+    <h1 class="text-info text-center pb-3">Gestion des newsletters</h1>
+    <h2 class=" text-center pb-5">Liste des membres de la Newsletter</h2>
+
+	<div class="table-responsive">
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th>Login</th>
+					<th>Nom</th>
+					<th>Prénoms</th>
+					<th>Email</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for user in membresNewsletters %}
+					<tr>
+						<td>{{user.login}}</td>
+						<td>{{user.lastname}}</td>
+						<td>{{user.firstname}}</td>
+						<td>{{user.email}}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+    <h2 class=" text-center pb-5">Envoyer une newsletter aux membres</h2>
+    {% if isSent %}
+		<p class="text-success">Votre newsletter a bien été envoyé à vos membres !</p>
+	{% endif %}
+    <form method="POST">
+			<div class="pb-2">
+				<label for="suject">Votre sujet :</label>
+				<input type="text" name="subject" class="form-control" autofocus maxlength="30" size="30" required/>
+			</div>
+			<div class="pb-2">
+				<textarea type="text" name="message" class="form-control" rows="8" cols="45" placeholder="Votre message" required></textarea>
+			</div>
+			<input class="btn btn-primary" type="submit" value="Envoyer"/>
+		</form>
+
+    
+    
+</div>
+{% endblock %}

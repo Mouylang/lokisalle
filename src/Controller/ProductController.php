@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,6 +34,8 @@ class ProductController extends AbstractController
     public function create_or_update(Product $product=null,Request $request, EntityManagerInterface $manager){
         if(!$product){
             $product = new Product();
+            $product->setCheckinAt(new DateTime());
+            $product->setCheckoutAt(new DateTime());
         }
         
         $form=$this->createForm(ProductType::class,$product);        

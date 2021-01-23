@@ -23,6 +23,7 @@ class SearchController extends AbstractController
         $checkinAtAfter = null;
         $checkinAtBefore = null;
         $price = null;
+        $keyword = null;
 
 
         
@@ -34,10 +35,11 @@ class SearchController extends AbstractController
             $checkinAtAfter = $request->get('checkinAtAfter');
             $checkinAtBefore = $request->get('checkinAtBefore');
             $price = $request->get('price');
+            $keyword = $request->get('keyword');
 
             
 
-                $products = $productRepository->findByCriteria($category,$price,$city,$checkinAtAfter,$checkinAtBefore,$capacity);
+                $products = $productRepository->findByCriteria($category,$price,$city,$checkinAtAfter,$checkinAtBefore,$capacity,$keyword);
                 $isPost = true;
 
         }
@@ -53,7 +55,8 @@ class SearchController extends AbstractController
             'capacity'=> $capacity,
             'checkinAtAfter'=> $checkinAtAfter,
             'checkinAtBefore'=>$checkinAtBefore,
-            'price'=>$price
+            'price'=>$price,
+            'keyword'=>$keyword
 
         ]);
 

@@ -22,15 +22,13 @@
 								spécialisé dans la gastronomie française, nous avons à cœur de veiller à votre satisfaction.
 			</p>
 		</div>
-	</div>
-	<h2 class="text-primary pt-3 ">Nos 3 prochaines dates disponibles chez LOKISALLE</h2>
-	<div class="row text-center pt-5 ">
-
-
+	</div>	
+	<h2 class="text-primary text-center pt-3 pb-5">Nos 3 prochaines dates disponibles chez LOKISALLE</h2>
+	<div class="row">
 		{% for product in products %}
-			<div class="card col-md-4">
-				<div class="card-body">
-					<h3>{{product.room.title}}</h3>
+			<div class="col-md-4 p-2">
+				<div class="card shadow">
+					<h3 class="card-header text-center">{{product.room.title}}</h3>
 					<img src="{{product.room.photo}}" class="img-fluid"/>
 					<h5 class="card-title pt-3 text-center">
 						{{product.room.address}}
@@ -39,29 +37,29 @@
 						{{product.room.zipCode}}
 						{{product.room.city}}
 					</h5>
-				</div>
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item">
-						<u>Catégorie
-						</u>:
-						{{product.room.category.name}}</li>
-					<li class="list-group-item">
-						<u>Date d'arrivée
-						</u>: du
-						{{product.checkinAt|date('d/m/Y H:i')}}</li>
-					<li class="list-group-item">
-						<u>Date de départ
-						</u>: au
-						{{product.checkoutAt|date('d/m/Y H:i')}}</li>
-					<li class="list-group-item">
-						<u>Tarif
-						</u>:
-						{{product.price}}
-						€</li>
-				</ul>
-				<div class="card-body text-center">
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<u>Catégorie
+							</u>:
+							{{product.room.category.name}}</li>
+						<li class="list-group-item">
+							<u>Date d'arrivée
+							</u>: du
+							{{product.checkinAt|date('d/m/Y H:i')}}</li>
+						<li class="list-group-item">
+							<u>Date de départ
+							</u>: au
+							{{product.checkoutAt|date('d/m/Y H:i')}}</li>
+						<li class="list-group-item">
+							<u>Tarif
+							</u>:
+							{{product.price}}
+							€</li>	
+					</ul>
+					<div class="card-body text-center">
 					<a href="{{path('product_show',{'id': product.id})}}" class="btn btn-primary ">Afficher le détail</a>
-				</div>
+					</div>
+				</div>	
 			</div>
 		{% endfor %}
 	</div>

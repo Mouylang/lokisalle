@@ -69,7 +69,7 @@ class ProductRepository extends ServiceEntityRepository
 
     }
 
-    public function findByCriteria($category,$price,$city,$checkinAtAfter,$checkoutAtBefore,$capacity){
+    public function findByCriteria($category,$price,$city,$checkinAtAfter,$checkoutAtBefore,$capacity,$keyword){
         $queryBuilder = $this->createQueryBuilder('product');
         $queryBuilder->innerJoin('product.room','room');
         $queryBuilder->innerJoin('room.category','category');
@@ -98,6 +98,11 @@ class ProductRepository extends ServiceEntityRepository
         if($city){
             $queryBuilder->andWhere('room.city = :roomCity')
             ->setParameter('roomCity',$city);
+        }
+        
+        if($keyword){
+            $queryBuilder->andWhere("room.city like :keyword or room.title like :keyword or room.description like :keyword")
+            ->setParameter('keyword','%' . $keyword . '%');
         }
 
 

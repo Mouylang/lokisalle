@@ -36,6 +36,22 @@ class UserRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    public function findAllMembersAcceptNewsletter()
+    {
+
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            "SELECT user
+            FROM App\Entity\User user
+            WHERE user.acceptNewletter = 1 "
+        );
+
+       
+        return $query->getResult();
+    }
+
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */
