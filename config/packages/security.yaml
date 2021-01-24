@@ -50,4 +50,5 @@ security:
          - { path: ^/product/new, roles: ROLE_ADMIN }
          - { path: ^/comment, roles: ROLE_ADMIN }
          - { path: ^/statistic, roles: ROLE_ADMIN }
+         - { path: ^/newsletter, roles: ROLE_ADMIN }
 
